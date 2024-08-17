@@ -1,10 +1,17 @@
 <template>
   <template class="center-container">
-    <p>Page created by: <strong>Kacper Renkel</strong></p>
+    <p>{{ t("page-created-by") }}: <strong>Kacper Renkel</strong></p>
   </template>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({
+  inheritLocale: true,
+  useScope: "local",
+});
+</script>
 
 <style scoped>
 .center-container {
