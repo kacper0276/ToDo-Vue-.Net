@@ -1,11 +1,17 @@
 <template>
   <nav>
-    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/">{{ t("home") }}</RouterLink>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({
+  inheritLocale: true,
+  useScope: "local",
+});
 </script>
 
 <style scoped>
