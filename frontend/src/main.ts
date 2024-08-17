@@ -11,7 +11,7 @@ import en from "./locales/en.json";
 import pl from "./locales/pl.json";
 
 const i18n = createI18n({
-  locale: "en",
+  locale: "pl",
   messages: {
     en,
     pl,
