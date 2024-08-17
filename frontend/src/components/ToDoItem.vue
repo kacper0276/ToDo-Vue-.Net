@@ -1,53 +1,40 @@
-<script lang="ts">
-import { defineComponent, ref, type PropType } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import type { ToDoItem } from "@/types/ToDoItem.type";
 
-export default defineComponent({
-  props: {
-    toDoItem: {
-      type: Object as PropType<ToDoItem>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const isExpanded = ref(false);
+const props = defineProps<{
+  toDoItem: ToDoItem;
+}>();
 
-    const toggleExpand = () => {
-      isExpanded.value = !isExpanded.value;
-    };
+const isExpanded = ref(false);
 
-    const toggleCompletion = () => {
-      props.toDoItem.completed = !props.toDoItem.completed;
-    };
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value;
+};
 
-    return {
-      isExpanded,
-      toggleExpand,
-      toggleCompletion,
-      toDoItem: props.toDoItem,
-    };
-  },
-});
+const toggleComplete = () => {
+  props.toDoItem.completed = !props.toDoItem.completed;
+};
 </script>
 
 <template>
   <div class="todo-container">
-    <h3>{{ toDoItem.title }}</h3>
+    <h3>{{ props.toDoItem.title }}</h3>
     <div class="status">
       <input
         type="checkbox"
-        :checked="toDoItem.completed"
-        @change="toggleCompletion"
+        :checked="props.toDoItem.completed"
+        @change="toggleComplete"
         class="status-checkbox"
       />
-      <label>{{ toDoItem.completed ? "Gotowe" : "Niegotowe" }}</label>
+      <label>{{ props.toDoItem.completed ? "Gotowe" : "Niegotowe" }}</label>
     </div>
     <button @click="toggleExpand" class="toggle-button">
       {{ isExpanded ? "Zwiń" : "Rozwiń" }}
     </button>
     <transition name="expand-fade">
       <div v-if="isExpanded" class="description">
-        <p>{{ toDoItem.description }}</p>
+        <p>{{ props.toDoItem.description }}</p>
       </div>
     </transition>
   </div>
