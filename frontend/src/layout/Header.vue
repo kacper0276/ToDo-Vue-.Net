@@ -12,6 +12,12 @@ import { RouterLink } from "vue-router";
 nav {
   width: 100%;
   height: 100%;
-  background: rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: rgb(66, 184, 131);
 }
 </style>
