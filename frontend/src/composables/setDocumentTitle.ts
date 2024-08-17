@@ -11,14 +11,6 @@ export function setDocumentTitle(key: string) {
   };
 
   watch(
-    title,
-    (newTitle) => {
-      setTitle(newTitle);
-    },
-    { immediate: true }
-  );
-
-  watch(
     [locale, () => t(key)],
     () => {
       setTitle(key);
