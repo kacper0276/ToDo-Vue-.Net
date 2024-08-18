@@ -1,5 +1,6 @@
 
 using backend.Entities;
+using backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend
@@ -11,14 +12,25 @@ namespace backend
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("FrontEndClient", policyBuilder =>
+                policyBuilder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+                );
+            });
+
+            builder.Services.AddScoped<IToDoService, ToDoService>();
 
             var app = builder.Build();
 
@@ -28,6 +40,9 @@ namespace backend
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            // CORS
+            app.UseCors("FrontEndClient");
 
             app.UseHttpsRedirection();
 
