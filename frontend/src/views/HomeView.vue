@@ -2,10 +2,11 @@
 import ToDoItemComponent from "@/components/ToDoItem.vue";
 import AddTodoModal from "@/components/AddTodoModal.vue";
 import { onMounted, ref } from "vue";
-import type { ToDoItem } from "@/types/ToDoItem.type";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useToDo } from "@/composables/useToDo";
+import { useNotification } from "@kyvg/vue3-notification";
 
+const notification = useNotification();
 const { setTitle } = setDocumentTitle("home-page");
 setTitle("home-page");
 
@@ -17,10 +18,6 @@ onMounted(async () => {
 
 const isModalVisible = ref(false);
 
-const addToDoItem = (item: Omit<ToDoItem, "id">) => {
-  console.log(item);
-};
-
 const showAddTodoModal = () => {
   isModalVisible.value = true;
 };
@@ -28,6 +25,14 @@ const showAddTodoModal = () => {
 const hideAddTodoModal = () => {
   isModalVisible.value = false;
 };
+
+onMounted(() => {
+  notification.notify({
+    title: "Zadania wczytane",
+    text: "Pomyślnie wczytano listę zadań.",
+    type: "success",
+  });
+});
 </script>
 
 <template>

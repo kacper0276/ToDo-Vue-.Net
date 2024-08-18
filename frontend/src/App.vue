@@ -17,6 +17,7 @@ import Footer from "./layout/Footer.vue";
       <Footer />
     </template>
   </Layout>
+  <notifications />
 </template>
 
 <style scoped></style>
