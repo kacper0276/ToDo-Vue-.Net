@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ToDoItem } from "@/types/ToDoItem.type";
+import { useToDo } from "@/composables/useToDo";
+
+const { addToDoItem } = useToDo();
 
 const props = defineProps<{
   show: boolean;
-  onAdd: (item: ToDoItem) => void;
   onClose: () => void;
 }>();
 
-const newToDo = ref<ToDoItem>({
-  id: 0,
+const newToDo = ref<Omit<ToDoItem, "id">>({
   title: "",
   description: "",
   completed: false,
@@ -17,8 +18,8 @@ const newToDo = ref<ToDoItem>({
 
 const addTodoItem = () => {
   if (newToDo.value.title.trim()) {
-    props.onAdd(newToDo.value);
-    newToDo.value = { id: 0, title: "", description: "", completed: false };
+    addToDoItem(newToDo.value);
+    newToDo.value = { title: "", description: "", completed: false };
     props.onClose();
   }
 };

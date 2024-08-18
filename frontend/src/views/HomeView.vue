@@ -40,11 +40,7 @@ const hideAddTodoModal = () => {
       :key="item.id"
       :to-do-item="item"
     />
-    <AddTodoModal
-      :show="isModalVisible"
-      :onAdd="addToDoItem"
-      :onClose="hideAddTodoModal"
-    />
+    <AddTodoModal :show="isModalVisible" :onClose="hideAddTodoModal" />
   </main>
 </template>
 
