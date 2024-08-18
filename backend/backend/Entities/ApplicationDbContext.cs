@@ -4,7 +4,7 @@ namespace backend.Entities
 {
     public class ApplicationDbContext : DbContext
     {
-        private string _connectionString = "Server=localhost,1433;Database=RestaurantDb;User Id=sa;Password=Haslo123!;TrustServerCertificate=True";
+        private string _connectionString = "Server=localhost,1433;Database=todo;User Id=sa;Password=Haslo123!;TrustServerCertificate=True";
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
