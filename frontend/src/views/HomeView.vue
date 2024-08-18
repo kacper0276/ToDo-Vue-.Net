@@ -1,35 +1,24 @@
 <script setup lang="ts">
 import ToDoItemComponent from "@/components/ToDoItem.vue";
 import AddTodoModal from "@/components/AddTodoModal.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import type { ToDoItem } from "@/types/ToDoItem.type";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
+import { useToDo } from "@/composables/useToDo";
 
-const toDoItems = ref<ToDoItem[]>([
-  {
-    id: 1,
-    title: "Przykładowe zadanie 1",
-    description: "To jest przykładowy opis zadania 1.",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Przykładowe zadanie 2",
-    description: "To jest przykładowy opis zadania 2.",
-    completed: false,
-  },
-]);
+const { setTitle } = setDocumentTitle("home-page");
+setTitle("home-page");
+
+const { fetchToDoItems, todos } = useToDo();
+
+onMounted(async () => {
+  await fetchToDoItems();
+});
 
 const isModalVisible = ref(false);
 
 const addToDoItem = (item: Omit<ToDoItem, "id">) => {
-  const newId = toDoItems.value.length
-    ? Math.max(...toDoItems.value.map((todo) => todo.id)) + 1
-    : 1;
-  toDoItems.value.push({
-    id: newId,
-    ...item,
-  });
+  console.log(item);
 };
 
 const showAddTodoModal = () => {
@@ -39,10 +28,6 @@ const showAddTodoModal = () => {
 const hideAddTodoModal = () => {
   isModalVisible.value = false;
 };
-
-const { setTitle } = setDocumentTitle("home-page");
-
-setTitle("home-page");
 </script>
 
 <template>
@@ -51,7 +36,7 @@ setTitle("home-page");
       Dodaj nowe zadanie
     </button>
     <ToDoItemComponent
-      v-for="item in toDoItems"
+      v-for="item in todos"
       :key="item.id"
       :to-do-item="item"
     />
