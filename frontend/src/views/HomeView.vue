@@ -45,7 +45,11 @@ onMounted(() => {
       :key="item.id"
       :to-do-item="item"
     />
-    <AddTodoModal :show="isModalVisible" :onClose="hideAddTodoModal" />
+    <AddTodoModal
+      :show="isModalVisible"
+      :onClose="hideAddTodoModal"
+      :on-refresh="fetchToDoItems"
+    />
   </main>
 </template>
 

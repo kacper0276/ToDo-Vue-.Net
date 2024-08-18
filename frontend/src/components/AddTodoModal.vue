@@ -8,6 +8,7 @@ const { addToDoItem } = useToDo();
 const props = defineProps<{
   show: boolean;
   onClose: () => void;
+  onRefresh: () => void;
 }>();
 
 const newToDo = ref<Omit<ToDoItem, "id">>({
@@ -21,6 +22,7 @@ const addTodoItem = () => {
     addToDoItem(newToDo.value);
     newToDo.value = { title: "", description: "", completed: false };
     props.onClose();
+    props.onRefresh();
   }
 };
 
