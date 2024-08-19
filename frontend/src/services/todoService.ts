@@ -25,4 +25,13 @@ export default {
       console.error("Failed to add new ToDo item", error);
     }
   },
+
+  async toggleToDoStatus(id: number): Promise<void> {
+    try {
+      await apiClient.put(`/todo/${id}/toggle`);
+    } catch (error) {
+      console.error("Failed to toggle ToDo status", error);
+      throw error;
+    }
+  },
 };
