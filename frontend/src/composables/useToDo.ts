@@ -36,6 +36,19 @@ export function useToDo() {
     }
   };
 
+  const toggleToDoStatus = async (id: number): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      await todoService.toggleToDoStatus(id);
+      await fetchToDoItems();
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     todos,
     todo,
@@ -43,5 +56,6 @@ export function useToDo() {
     error,
     fetchToDoItems,
     addToDoItem,
+    toggleToDoStatus,
   };
 }
