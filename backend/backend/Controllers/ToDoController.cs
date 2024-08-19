@@ -73,5 +73,17 @@ namespace backend.Controllers
             }
             return NoContent();
         }
+
+        [HttpPut("{id}/toggle")]
+        public async Task<IActionResult> ToggleIsComplete(int id)
+        {
+            var result = await _toDoService.ToggleIsCompleteAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }
