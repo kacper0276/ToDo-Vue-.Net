@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ToDoItem } from "@/types/ToDoItem.type";
+import { useToDo } from "@/composables/useToDo";
 
 const props = defineProps<{
   toDoItem: ToDoItem;
 }>();
 
 const isExpanded = ref(false);
+const { toggleToDoStatus } = useToDo();
 
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value;
 };
 
-const toggleComplete = () => {
-  props.toDoItem.completed = !props.toDoItem.completed;
+const toggleComplete = async () => {
+  try {
+    await toggleToDoStatus(props.toDoItem.id);
+  } catch (err) {
+    console.error("Failed to toggle task status", err);
+  }
 };
 </script>
 
