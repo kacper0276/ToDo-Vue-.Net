@@ -11,6 +11,7 @@ namespace backend.Services
         Task<PageResult<ToDoItem>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoItem item);
         Task<bool> DeleteAsync(int id);
+        Task<bool> ToggleIsCompleteAsync(int id);
     }
 
     public class ToDoService : IToDoService
@@ -75,6 +76,20 @@ namespace backend.Services
             }
 
             _context.ToDoItems.Remove(item);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> ToggleIsCompleteAsync(int id)
+        {
+            var item = await _context.ToDoItems.FindAsync(id);
+            if (item == null)
+            {
+                return false;
+            }
+
+            item.IsComplete = !item.IsComplete;
+
             await _context.SaveChangesAsync();
             return true;
         }
