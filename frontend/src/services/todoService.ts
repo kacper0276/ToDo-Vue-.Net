@@ -34,4 +34,13 @@ export default {
       throw error;
     }
   },
+
+  async deleteToDoItem(id: number): Promise<void> {
+    try {
+      await apiClient.delete<void>(`/todo/${id}`);
+    } catch (error) {
+      console.error("Failed to delete ToDo item", error);
+      throw error;
+    }
+  },
 };
