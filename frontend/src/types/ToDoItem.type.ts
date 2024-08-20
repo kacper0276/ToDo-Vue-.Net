@@ -3,6 +3,6 @@ export class ToDoItem {
     public id: number,
     public title: string,
     public description: string,
-    public completed: boolean
+    public isComplete: boolean
   ) {}
 }
