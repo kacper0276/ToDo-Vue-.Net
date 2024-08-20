@@ -8,21 +8,21 @@ const { addToDoItem } = useToDo();
 const props = defineProps<{
   show: boolean;
   onClose: () => void;
-  onRefresh: () => void;
+  onRefresh: () => Promise<void>;
 }>();
 
 const newToDo = ref<Omit<ToDoItem, "id">>({
   title: "",
   description: "",
-  completed: false,
+  isComplete: false,
 });
 
-const addTodoItem = () => {
+const addTodoItem = async () => {
   if (newToDo.value.title.trim()) {
-    addToDoItem(newToDo.value);
-    newToDo.value = { title: "", description: "", completed: false };
+    await addToDoItem(newToDo.value);
+    newToDo.value = { title: "", description: "", isComplete: false };
+    await props.onRefresh();
     props.onClose();
-    props.onRefresh();
   }
 };
 
