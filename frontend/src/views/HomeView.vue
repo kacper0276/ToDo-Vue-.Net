@@ -44,6 +44,7 @@ onMounted(() => {
       v-for="item in todos"
       :key="item.id"
       :to-do-item="item"
+      :on-refresh="fetchToDoItems"
     />
     <AddTodoModal
       :show="isModalVisible"
