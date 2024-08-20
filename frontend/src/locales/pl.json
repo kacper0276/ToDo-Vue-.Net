@@ -3,5 +3,14 @@
 
   "home": "Strona główna",
 
-  "home-page": "Strona główna"
+  "home-page": "Strona główna",
+
+  "successfully-fetched-todo": "Pomyślnie pobrano elementy ToDo",
+  "successfully-added-todo": "Pomyślnie dodano element ToDo",
+  "successfully-toggled-todo": "Pomyślnie zmieniono status ToDo",
+  "successfully-deleted-todo": "Pomyślnie usunięto element ToDo",
+  "failed-to-fetch-todo": "Nie udało się pobrać elementów ToDo: {error}",
+  "failed-to-add-todo": "Nie udało się dodać elementu ToDo: {error}",
+  "failed-to-toggle-todo": "Nie udało się zmienić statusu ToDo: {error}",
+  "failed-to-delete-todo": "Nie udało się usunąć elementu ToDo: {error}"
 }
