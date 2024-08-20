@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <RouterLink to="/">{{ t("home") }}</RouterLink>
+    <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
     <div>
       <select v-model="selectedLang" @change="changeLanguage">
         <option value="en">English</option>
@@ -55,9 +55,31 @@ nav {
   padding: 0 20px;
 }
 
-a {
+.nav-link {
   color: rgb(66, 184, 131);
   text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: rgb(36, 136, 83);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  background: rgb(66, 184, 131);
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 div {
