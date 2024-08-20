@@ -51,7 +51,7 @@ defineProps<{
   }
 
   .outer {
-    stroke: #ff3d00;
+    stroke: #42b97c;
     animation: dash 1.5s ease-in-out infinite;
   }
 
