@@ -5,10 +5,11 @@ import { useToDo } from "@/composables/useToDo";
 
 const props = defineProps<{
   toDoItem: ToDoItem;
+  onRefresh: () => Promise<void>;
 }>();
 
 const isExpanded = ref(false);
-const { toggleToDoStatus } = useToDo();
+const { toggleToDoStatus, deleteToDoItem } = useToDo();
 
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value;
@@ -17,23 +18,57 @@ const toggleExpand = () => {
 const toggleComplete = async () => {
   try {
     await toggleToDoStatus(props.toDoItem.id);
+    await props.onRefresh();
   } catch (err) {
     console.error("Failed to toggle task status", err);
+  }
+};
+
+const removeToDoItem = async () => {
+  try {
+    await deleteToDoItem(props.toDoItem.id);
+    await props.onRefresh();
+  } catch (err) {
+    console.error("Failed to delete task", err);
   }
 };
 </script>
 
 <template>
   <div class="todo-container">
-    <h3>{{ props.toDoItem.title }}</h3>
+    <div class="header">
+      <h3>{{ props.toDoItem.title }}</h3>
+      <button
+        @click="removeToDoItem"
+        class="delete-button"
+        title="Usuń zadanie"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="heroicon-trash"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 3v1H4v2h16V4h-5V3a2 2 0 00-2-2H9a2 2 0 00-2 2v1zM4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 002 2h8a2 2 0 002-2l1-12"
+          />
+        </svg>
+      </button>
+    </div>
     <div class="status">
       <input
         type="checkbox"
-        :checked="props.toDoItem.completed"
+        :checked="props.toDoItem.isComplete"
         @change="toggleComplete"
         class="status-checkbox"
       />
-      <label>{{ props.toDoItem.completed ? "Gotowe" : "Niegotowe" }}</label>
+      <label>{{ props.toDoItem.isComplete ? "Gotowe" : "Niegotowe" }}</label>
     </div>
     <button @click="toggleExpand" class="toggle-button">
       {{ isExpanded ? "Zwiń" : "Rozwiń" }}
@@ -57,10 +92,34 @@ const toggleComplete = async () => {
   margin-left: 20px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 h3 {
   color: #42b97c;
   margin: 0;
   font-size: 1.2em;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.delete-button svg {
+  width: 20px;
+  height: 20px;
+  color: #42b97c;
+  transition: color 0.3s ease;
+}
+
+.delete-button:hover svg {
+  color: #42b97c;
 }
 
 .status {
