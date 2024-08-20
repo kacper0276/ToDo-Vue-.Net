@@ -5,6 +5,8 @@
 
   "home-page": "Strona główna",
 
+  "add-new-task": "Dodaj nowe zadanie",
+
   "successfully-fetched-todo": "Pomyślnie pobrano elementy ToDo",
   "successfully-added-todo": "Pomyślnie dodano element ToDo",
   "successfully-toggled-todo": "Pomyślnie zmieniono status ToDo",
