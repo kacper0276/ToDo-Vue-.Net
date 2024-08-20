@@ -5,6 +5,8 @@
 
   "home-page": "Home page",
 
+  "add-new-task": "Add new task",
+
   "successfully-fetched-todo": "Successfully fetched ToDo items",
   "successfully-added-todo": "Successfully added ToDo item",
   "successfully-toggled-todo": "Successfully toggled ToDo status",
