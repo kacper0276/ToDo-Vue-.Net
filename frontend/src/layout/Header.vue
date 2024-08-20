@@ -1,7 +1,24 @@
 <template>
   <nav>
-    <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
-    <div>
+    <div class="menu-container">
+      <button
+        class="menu-button"
+        @click="toggleMenu"
+        :class="{ 'menu-active': isMenuOpen }"
+      >
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+      </button>
+      <div class="menu-overlay" :class="{ 'menu-active': isMenuOpen }">
+        <div class="menu-content">
+          <RouterLink to="/" class="nav-link" @click="closeMenu">{{
+            t("home")
+          }}</RouterLink>
+        </div>
+      </div>
+    </div>
+    <div class="other-controls">
       <select v-model="selectedLang" @change="changeLanguage">
         <option value="en">English</option>
         <option value="pl">Polski</option>
@@ -23,6 +40,7 @@ const { t, locale } = useI18n();
 
 const selectedLang = ref(locale.value);
 const isDarkTheme = ref(false);
+const isMenuOpen = ref(false);
 
 const changeLanguage = () => {
   locale.value = selectedLang.value;
@@ -31,6 +49,14 @@ const changeLanguage = () => {
 const toggleTheme = () => {
   document.documentElement.classList.toggle("dark-theme", isDarkTheme.value);
   localStorage.setItem("theme", isDarkTheme.value ? "dark" : "light");
+};
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+const closeMenu = () => {
+  isMenuOpen.value = false;
 };
 
 onMounted(() => {
@@ -48,17 +74,81 @@ onMounted(() => {
 <style scoped>
 nav {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  position: relative;
+}
+
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+  position: relative;
+  z-index: 20;
+}
+
+.menu-button .menu-icon {
+  width: 30px;
+  height: 3px;
+  background: rgb(66, 184, 131);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.menu-button.menu-active .menu-icon:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-button.menu-active .menu-icon:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-button.menu-active .menu-icon:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.menu-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgb(33, 33, 33);
+  color: white;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 10;
+  padding: 20px;
+}
+
+.menu-overlay.menu-active {
+  transform: translateY(0);
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .nav-link {
   color: rgb(66, 184, 131);
   text-decoration: none;
   font-weight: bold;
+  margin: 10px 0;
   position: relative;
   transition: color 0.3s;
 }
@@ -82,7 +172,7 @@ nav {
   width: 100%;
 }
 
-div {
+.other-controls {
   display: flex;
   gap: 10px;
   align-items: center;
