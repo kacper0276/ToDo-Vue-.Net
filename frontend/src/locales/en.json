@@ -3,5 +3,14 @@
 
   "home": "Home",
 
-  "home-page": "Home page"
+  "home-page": "Home page",
+
+  "successfully-fetched-todo": "Successfully fetched ToDo items",
+  "successfully-added-todo": "Successfully added ToDo item",
+  "successfully-toggled-todo": "Successfully toggled ToDo status",
+  "successfully-deleted-todo": "Successfully deleted ToDo item",
+  "failed-to-fetch-todo": "Failed to fetch ToDo items: {error}",
+  "failed-to-add-todo": "Failed to add ToDo item: {error}",
+  "failed-to-toggle-todo": "Failed to toggle ToDo status: {error}",
+  "failed-to-delete-todo": "Failed to delete ToDo item: {error}"
 }
