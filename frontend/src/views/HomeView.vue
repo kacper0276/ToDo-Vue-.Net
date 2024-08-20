@@ -5,10 +5,13 @@ import { onMounted, ref } from "vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useToDo } from "@/composables/useToDo";
 import { useNotification } from "@kyvg/vue3-notification";
+import { useI18n } from "vue-i18n";
 
 const notification = useNotification();
 const { setTitle } = setDocumentTitle("home-page");
 setTitle("home-page");
+
+const { t } = useI18n();
 
 const { fetchToDoItems, todos } = useToDo();
 
@@ -38,7 +41,7 @@ onMounted(() => {
 <template>
   <main class="main-container">
     <button @click="showAddTodoModal" class="add-button">
-      Dodaj nowe zadanie
+      {{ t("add-new-task") }}
     </button>
     <ToDoItemComponent
       v-for="item in todos"
