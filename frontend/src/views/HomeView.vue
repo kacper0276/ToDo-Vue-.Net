@@ -28,14 +28,6 @@ const showAddTodoModal = () => {
 const hideAddTodoModal = () => {
   isModalVisible.value = false;
 };
-
-onMounted(() => {
-  notification.notify({
-    title: "Zadania wczytane",
-    text: "Pomyślnie wczytano listę zadań.",
-    type: "success",
-  });
-});
 </script>
 
 <template>
