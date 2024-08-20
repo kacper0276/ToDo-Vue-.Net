@@ -3,6 +3,11 @@ import { RouterView } from "vue-router";
 import Header from "./layout/Header.vue";
 import Layout from "./layout/Layout.vue";
 import Footer from "./layout/Footer.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import { provide, ref } from "vue";
+
+const isLoading = ref(false);
+provide("isLoading", isLoading);
 </script>
 
 <template>
@@ -18,6 +23,7 @@ import Footer from "./layout/Footer.vue";
     </template>
   </Layout>
   <notifications />
+  <LoadingSpinner :visible="isLoading" />
 </template>
 
 <style scoped></style>
