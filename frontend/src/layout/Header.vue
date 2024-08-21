@@ -1,5 +1,6 @@
 <template>
   <nav>
+    <!-- Mobile Menu -->
     <div class="menu-container">
       <button
         class="menu-button"
@@ -15,9 +16,20 @@
           <RouterLink to="/" class="nav-link" @click="closeMenu">{{
             t("home")
           }}</RouterLink>
+          <RouterLink to="/login" class="nav-link" @click="closeMenu">{{
+            t("login")
+          }}</RouterLink>
         </div>
       </div>
     </div>
+
+    <!-- Desktop Menu -->
+    <div class="desktop-menu">
+      <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
+      <RouterLink to="/login" class="nav-link">{{ t("login") }}</RouterLink>
+    </div>
+
+    <!-- Other Controls -->
     <div class="other-controls">
       <select v-model="selectedLang" @change="changeLanguage">
         <option value="en">English</option>
@@ -79,10 +91,12 @@ nav {
   align-items: center;
   padding: 0 20px;
   position: relative;
+  height: 100%;
 }
 
+/* Mobile Menu Styles */
 .menu-container {
-  position: relative;
+  display: none; /* Hide by default */
 }
 
 .menu-button {
@@ -170,6 +184,40 @@ nav {
 
 .nav-link:hover::after {
   width: 100%;
+}
+
+/* Desktop Menu Styles */
+.desktop-menu {
+  display: none; /* Hide by default */
+  gap: 20px;
+}
+
+.desktop-menu .nav-link {
+  margin: 0;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .menu-container {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-container {
+    display: none;
+  }
+
+  .desktop-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 }
 
 .other-controls {
