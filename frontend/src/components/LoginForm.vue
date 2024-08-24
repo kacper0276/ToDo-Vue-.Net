@@ -14,10 +14,10 @@
       />
     </div>
     <button type="submit" :disabled="loading" class="login-button">
-      {{ t("login") }}
+      {{ t("log-in") }}
     </button>
     <p class="register-text">
-      {{ t("dont-have-an-account") }}
+      {{ t("dont-have-an-account") }}?
       <button @click="goToRegister" class="register-button">
         {{ t("register") }}
       </button>

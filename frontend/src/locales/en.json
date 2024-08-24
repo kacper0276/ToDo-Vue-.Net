@@ -2,8 +2,11 @@
   "page-created-by": "Page created by",
 
   "home": "Home",
+  "login": "Login",
 
   "home-page": "Home page",
+  "login-page": "Login page",
+  "not-found-page": "Not found page",
 
   "add-new-task": "Add new task",
 
@@ -14,5 +17,11 @@
   "failed-to-fetch-todo": "Failed to fetch ToDo items: {error}",
   "failed-to-add-todo": "Failed to add ToDo item: {error}",
   "failed-to-toggle-todo": "Failed to toggle ToDo status: {error}",
-  "failed-to-delete-todo": "Failed to delete ToDo item: {error}"
+  "failed-to-delete-todo": "Failed to delete ToDo item: {error}",
+
+  "email": "Email",
+  "password": "Password",
+  "log-in": "Log in",
+  "dont-have-an-account": "Don't have an account",
+  "register": "Register"
 }

@@ -2,8 +2,11 @@
   "page-created-by": "Strona stworzona przez",
 
   "home": "Strona główna",
+  "login": "Logowanie",
 
   "home-page": "Strona główna",
+  "login-page": "Strona logowania",
+  "not-found-page": "Nie znaleziono strony",
 
   "add-new-task": "Dodaj nowe zadanie",
 
@@ -14,5 +17,11 @@
   "failed-to-fetch-todo": "Nie udało się pobrać elementów ToDo: {error}",
   "failed-to-add-todo": "Nie udało się dodać elementu ToDo: {error}",
   "failed-to-toggle-todo": "Nie udało się zmienić statusu ToDo: {error}",
-  "failed-to-delete-todo": "Nie udało się usunąć elementu ToDo: {error}"
+  "failed-to-delete-todo": "Nie udało się usunąć elementu ToDo: {error}",
+
+  "email": "Email",
+  "password": "Hasło",
+  "log-in": "Zaloguj się",
+  "dont-have-an-account": "Nie masz konta",
+  "register": "Zarejestruj się"
 }
