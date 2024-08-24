@@ -1,4 +1,5 @@
 ﻿using backend.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -6,8 +7,9 @@ namespace backend.Services
     public interface IUserService
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<User> GetUserByIdAsync(int id);
-        Task<User> CreateUserAsync(User user);
+        Task<User?> GetUserByIdAsync(int id);
+        Task<User> RegisterUser(User user);
+        Task<User?> LoginAsync(string email, string password);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
     }
@@ -15,10 +17,12 @@ namespace backend.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IPasswordHasher<User> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
@@ -26,15 +30,35 @@ namespace backend.Services
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FindAsync(id) ?? null;
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<User> RegisterUser(User user)
         {
+            user.Password = _passwordHasher.HashPassword(user, user.Password);
+
+            user.Role = "USER";
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<User?> LoginAsync(string email, string password)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return null;
+            }
+
             return user;
         }
 
