@@ -7,7 +7,11 @@
 
 <script setup lang="ts">
 import LoginForm from "@/components/LoginForm.vue";
+import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useI18n } from "vue-i18n";
+
+const { setTitle } = setDocumentTitle("login-page");
+setTitle("login-page");
 
 const { t } = useI18n();
 </script>
