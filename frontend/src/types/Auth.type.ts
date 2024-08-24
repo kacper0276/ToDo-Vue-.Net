@@ -1,19 +1,21 @@
-export type UserRole = "admin" | "user" | "guest";
-
-export interface User {
-  id: number;
-  email: string;
-  login: string;
-  role: UserRole;
+export class User {
+  constructor(
+    public id: number,
+    public email: string,
+    public login: string,
+    public role: string
+  ) {}
 }
 
-export interface LoginCredentials {
-  email: string;
-  password: string;
+export class LoginCredentials {
+  constructor(public email: string, public password: string) {}
 }
 
-export interface RegisterCredentials {
-  email: string;
-  login: string;
-  password: string;
+export class RegisterCredentials {
+  constructor(
+    public email: string,
+    public login: string,
+    public password: string,
+    public role?: string
+  ) {}
 }

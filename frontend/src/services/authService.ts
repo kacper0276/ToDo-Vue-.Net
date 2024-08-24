@@ -5,7 +5,7 @@ import type {
   RegisterCredentials,
 } from "@/types/Auth.type";
 
-const API_URL: AxiosInstance = axios.create({
+const apiClient: AxiosInstance = axios.create({
   baseURL: "http://localhost:5252/api",
   headers: {
     "Content-Type": "application/json",
@@ -14,16 +14,18 @@ const API_URL: AxiosInstance = axios.create({
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {
-    const response = await axios.post(`${API_URL}/login`, credentials);
+    const response = await apiClient.post(`/login`, credentials);
     const { user, token } = response.data;
     localStorage.setItem("authToken", token);
     return { user };
   },
 
   async register(credentials: RegisterCredentials): Promise<{ user: User }> {
-    const response = await axios.post(`${API_URL}/register`, credentials);
+    const response = await apiClient.post(`/user/register`, credentials);
     const { user, token } = response.data;
-    localStorage.setItem("authToken", token);
+    console.log(response);
+
+    // localStorage.setItem("authToken", token);
     return { user };
   },
 
@@ -34,7 +36,7 @@ export default {
   async getCurrentUser(): Promise<User> {
     const token = localStorage.getItem("authToken");
     if (!token) throw new Error("No token found");
-    const response = await axios.get(`${API_URL}/me`, {
+    const response = await apiClient.get(`/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data.user;

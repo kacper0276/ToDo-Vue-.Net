@@ -10,6 +10,7 @@
 
   "add-new-task": "Dodaj nowe zadanie",
 
+  "error": "Błąd",
   "successfully-fetched-todo": "Pomyślnie pobrano elementy ToDo",
   "successfully-added-todo": "Pomyślnie dodano element ToDo",
   "successfully-toggled-todo": "Pomyślnie zmieniono status ToDo",
@@ -23,5 +24,9 @@
   "password": "Hasło",
   "log-in": "Zaloguj się",
   "dont-have-an-account": "Nie masz konta",
-  "register": "Zarejestruj się"
+  "register": "Zarejestruj się",
+
+  "username": "Nazwa użytkownika",
+  "repeat-password": "Powtórz hasło",
+  "passwords-must-be-the-same": "Hasła muszą być takie same"
 }

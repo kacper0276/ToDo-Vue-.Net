@@ -10,6 +10,7 @@
 
   "add-new-task": "Add new task",
 
+  "error": "Error",
   "successfully-fetched-todo": "Successfully fetched ToDo items",
   "successfully-added-todo": "Successfully added ToDo item",
   "successfully-toggled-todo": "Successfully toggled ToDo status",
@@ -23,5 +24,9 @@
   "password": "Password",
   "log-in": "Log in",
   "dont-have-an-account": "Don't have an account",
-  "register": "Register"
+  "register": "Register",
+
+  "username": "Username",
+  "repeat-password": "Repeat password",
+  "passwords-must-be-the-same": "Passwords must be the same"
 }

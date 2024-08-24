@@ -1,10 +1,11 @@
 ﻿using backend.Entities;
 using backend.Services;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-    [Route("/api/user")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -35,11 +36,24 @@ namespace backend.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> CreateUser([FromBody] User user)
+        [HttpPost("register")]
+        public async Task<ActionResult<User?>> CreateUser([FromBody] User user)
         {
-            var createdUser = await _userService.CreateUserAsync(user);
+            Console.WriteLine(user.Login);
+            var createdUser = await _userService.RegisterUser(user);
             return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User?>> Login([FromBody] LoginRequest loginRequest)
+        {
+            var user = await _userService.LoginAsync(loginRequest.Email, loginRequest.Password);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(user);
         }
 
         [HttpPut("{id}")]
