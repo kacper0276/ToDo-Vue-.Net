@@ -8,5 +8,6 @@ declare module "@vue/runtime-core" {
     AddTodoModal: typeof import("./src/components/AddTodoModal.vue")["default"];
     LoadingSpinner: typeof import("./src/components/LoadingSpinner.vue")["default"];
     LoginForm: typeof import("./src/components/LoginForm.vue")["default"];
+    RegisterForm: typeof import("./src/components/RegisterForm.vue")["default"];
   }
 }
