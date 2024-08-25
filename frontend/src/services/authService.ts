@@ -8,17 +8,18 @@ import { jsonApiClient } from "@/api";
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {
     const response = await jsonApiClient.post(`/login`, credentials);
-    const { user, token } = response.data;
-    localStorage.setItem("authToken", token);
+    const { user, token, refreshToken } = response.data;
+
+    sessionStorage.setItem("authToken", token);
+    sessionStorage.setItem("refreshToken", refreshToken);
+
     return { user };
   },
 
   async register(credentials: RegisterCredentials): Promise<{ user: User }> {
     const response = await jsonApiClient.post(`/user/register`, credentials);
-    const { user, token } = response.data;
-    console.log(response);
+    const { user } = response.data;
 
-    // localStorage.setItem("authToken", token);
     return { user };
   },
 
