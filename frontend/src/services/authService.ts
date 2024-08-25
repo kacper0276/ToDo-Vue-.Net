@@ -7,7 +7,7 @@ import { jsonApiClient } from "@/api";
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {
-    const response = await jsonApiClient.post(`/login`, credentials);
+    const response = await jsonApiClient.post(`/user/login`, credentials);
     const { user, token, refreshToken } = response.data;
 
     sessionStorage.setItem("authToken", token);
@@ -24,11 +24,12 @@ export default {
   },
 
   async logout(): Promise<void> {
-    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("refreshToken");
   },
 
   async getCurrentUser(): Promise<User> {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     if (!token) throw new Error("No token found");
     const response = await jsonApiClient.get(`/me`, {
       headers: { Authorization: `Bearer ${token}` },
