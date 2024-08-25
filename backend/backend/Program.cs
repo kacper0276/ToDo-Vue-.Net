@@ -1,8 +1,11 @@
 
 using backend.Entities;
 using backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace backend
 {
@@ -42,13 +45,35 @@ namespace backend
 
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
+            // Configure authentication
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["Authentication:JwtIssuer"],
+                    ValidAudience = builder.Configuration["Authentication:JwtIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:JwtKey"])),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
             // Add authorization policies
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
-                options.AddPolicy("GuestOnly", policy => policy.RequireRole("Guest"));
-                options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User"));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("ADMIN"));
+                options.AddPolicy("UserOnly", policy => policy.RequireRole("USER"));
+                options.AddPolicy("GuestOnly", policy => policy.RequireRole("GUEST"));
+                options.AddPolicy("AdminOrUser", policy => policy.RequireRole("ADMIN", "USER"));
             });
 
             var app = builder.Build();
@@ -65,8 +90,9 @@ namespace backend
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
