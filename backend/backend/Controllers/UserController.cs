@@ -1,4 +1,5 @@
 ﻿using backend.Entities;
+using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,18 @@ namespace backend.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<LoginResponse?>> RefreshToken([FromBody] string refreshToken)
+        {
+            var response = await _userService.RefreshTokenAsync(refreshToken);
+            if (response == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
