@@ -72,8 +72,9 @@ namespace backend.Services
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"Token validation failed: {ex.Message}"); // Dodatkowe informacje o błędzie
                 return false;
             }
         }

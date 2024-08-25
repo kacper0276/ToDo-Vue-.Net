@@ -1,4 +1,11 @@
-import axios, { type AxiosInstance } from "axios";
+import axios, {
+  type AxiosInstance,
+  type InternalAxiosRequestConfig,
+} from "axios";
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
 
 const jsonApiClient: AxiosInstance = axios.create({
   baseURL: "http://localhost:5252/api",
@@ -14,19 +21,15 @@ const formApiClient: AxiosInstance = axios.create({
   },
 });
 
-const getToken = () => localStorage.getItem("authToken");
-const getRefreshToken = () => localStorage.getItem("refreshToken");
-
-const setAuthHeader = (axiosInstance: AxiosInstance) => {
-  const token = getToken();
-  if (token) {
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-};
+const getToken = () => sessionStorage.getItem("authToken");
+const getRefreshToken = () => sessionStorage.getItem("refreshToken");
 
 jsonApiClient.interceptors.request.use(
-  (config) => {
-    setAuthHeader(jsonApiClient);
+  (config: CustomAxiosRequestConfig) => {
+    const token = getToken();
+    if (token && config.headers) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)
@@ -35,7 +38,7 @@ jsonApiClient.interceptors.request.use(
 jsonApiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as CustomAxiosRequestConfig;
 
     if (
       (error.response.status === 401 || error.response.status === 403) &&
@@ -45,20 +48,22 @@ jsonApiClient.interceptors.response.use(
       const refreshToken = getRefreshToken();
       if (refreshToken) {
         try {
-          const response = await jsonApiClient.post(`/refresh-token`, {
+          const response = await jsonApiClient.post(`/user/refresh-token`, {
             refreshToken,
           });
           const { token, refreshToken: newRefreshToken } = response.data;
 
-          localStorage.setItem("authToken", token);
-          localStorage.setItem("refreshToken", newRefreshToken);
+          sessionStorage.setItem("authToken", token);
+          sessionStorage.setItem("refreshToken", newRefreshToken);
 
-          setAuthHeader(jsonApiClient);
+          if (originalRequest.headers) {
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+          }
 
           return jsonApiClient(originalRequest);
         } catch (refreshError) {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("refreshToken");
+          sessionStorage.removeItem("authToken");
+          sessionStorage.removeItem("refreshToken");
           return Promise.reject(refreshError);
         }
       }
@@ -68,8 +73,11 @@ jsonApiClient.interceptors.response.use(
 );
 
 formApiClient.interceptors.request.use(
-  (config) => {
-    setAuthHeader(formApiClient);
+  (config: CustomAxiosRequestConfig) => {
+    const token = getToken();
+    if (token && config.headers) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)
@@ -78,7 +86,7 @@ formApiClient.interceptors.request.use(
 formApiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as CustomAxiosRequestConfig;
 
     if (
       (error.response.status === 401 || error.response.status === 403) &&
@@ -88,20 +96,22 @@ formApiClient.interceptors.response.use(
       const refreshToken = getRefreshToken();
       if (refreshToken) {
         try {
-          const response = await formApiClient.post(`/refresh-token`, {
+          const response = await formApiClient.post(`/user/refresh-token`, {
             refreshToken,
           });
           const { token, refreshToken: newRefreshToken } = response.data;
 
-          localStorage.setItem("authToken", token);
-          localStorage.setItem("refreshToken", newRefreshToken);
+          sessionStorage.setItem("authToken", token);
+          sessionStorage.setItem("refreshToken", newRefreshToken);
 
-          setAuthHeader(formApiClient);
+          if (originalRequest.headers) {
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+          }
 
           return formApiClient(originalRequest);
         } catch (refreshError) {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("refreshToken");
+          sessionStorage.removeItem("authToken");
+          sessionStorage.removeItem("refreshToken");
           return Promise.reject(refreshError);
         }
       }
