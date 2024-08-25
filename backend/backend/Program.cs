@@ -12,6 +12,10 @@ namespace backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // JWT
+            var authenticationSettings = new AuthenticationSettings();
+            builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
             // Add services to the container.
             builder.Services.AddControllers();
 
