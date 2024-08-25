@@ -1,7 +1,7 @@
 ﻿using backend.Entities;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -17,6 +17,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminOrUser")]
         public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _toDoService.GetAllAsync(pageNumber, pageSize);
