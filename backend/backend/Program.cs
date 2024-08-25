@@ -38,6 +38,7 @@ namespace backend
             // Services
             builder.Services.AddScoped<IToDoService, ToDoService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
 
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
