@@ -38,8 +38,18 @@ namespace backend
             // Services
             builder.Services.AddScoped<IToDoService, ToDoService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
 
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            // Add authorization policies
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
+                options.AddPolicy("GuestOnly", policy => policy.RequireRole("Guest"));
+                options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User"));
+            });
 
             var app = builder.Build();
 
