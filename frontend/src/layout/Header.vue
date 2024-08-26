@@ -16,9 +16,18 @@
           <RouterLink to="/" class="nav-link" @click="closeMenu">{{
             t("home")
           }}</RouterLink>
-          <RouterLink to="/login" class="nav-link" @click="closeMenu">{{
-            t("login")
-          }}</RouterLink>
+          <!-- Warunkowe wyświetlanie przycisków -->
+          <template v-if="authStore.user">
+            <!-- Przycisk wylogowywania z klasą logout-button -->
+            <button class="nav-link logout-button" @click="logout">
+              {{ t("logout") }}
+            </button>
+          </template>
+          <template v-else>
+            <RouterLink to="/login" class="nav-link" @click="closeMenu">{{
+              t("login")
+            }}</RouterLink>
+          </template>
         </div>
       </div>
     </div>
@@ -26,7 +35,16 @@
     <!-- Desktop Menu -->
     <div class="desktop-menu">
       <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
-      <RouterLink to="/login" class="nav-link">{{ t("login") }}</RouterLink>
+      <!-- Warunkowe wyświetlanie przycisków -->
+      <template v-if="authStore.user">
+        <!-- Przycisk wylogowywania z klasą logout-button -->
+        <button class="nav-link logout-button" @click="logout">
+          {{ t("logout") }}
+        </button>
+      </template>
+      <template v-else>
+        <RouterLink to="/login" class="nav-link">{{ t("login") }}</RouterLink>
+      </template>
     </div>
 
     <!-- Other Controls -->
@@ -47,8 +65,11 @@
 import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted } from "vue";
+import { useAuthStore } from "@/stores/authStore";
 
 const { t, locale } = useI18n();
+
+const authStore = useAuthStore();
 
 const selectedLang = ref(locale.value);
 const isDarkTheme = ref(false);
@@ -69,6 +90,11 @@ const toggleMenu = () => {
 
 const closeMenu = () => {
   isMenuOpen.value = false;
+};
+
+const logout = () => {
+  authStore.logout();
+  closeMenu();
 };
 
 onMounted(() => {
@@ -194,6 +220,27 @@ nav {
 
 .desktop-menu .nav-link {
   margin: 0;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgb(66, 184, 131);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.logout-button:hover {
+  color: rgb(36, 136, 83);
+}
+
+.logout-button:focus,
+.logout-button:active {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Media Queries */
