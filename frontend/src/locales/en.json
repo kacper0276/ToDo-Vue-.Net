@@ -28,5 +28,14 @@
 
   "username": "Username",
   "repeat-password": "Repeat password",
-  "passwords-must-be-the-same": "Passwords must be the same"
+  "passwords-must-be-the-same": "Passwords must be the same",
+
+  "successfully-logged-in": "Successfully logged in",
+  "success": "Success",
+  "successfully-registered": "Successfully registered",
+  "successfully-logged-out": "Successfully logged out",
+  "failed-to-login": "Failed to log in: {error}",
+  "failed-to-register": "Failed to register: {error}",
+  "failed-to-logout": "Failed to log out: {error}",
+  "failed-to-fetch-user": "Failed to fetch user: {error}"
 }
