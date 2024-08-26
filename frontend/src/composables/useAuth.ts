@@ -7,8 +7,10 @@ import type {
 import { ref, inject, type Ref } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { useI18n } from "vue-i18n";
+import { useAuthStore } from "@/stores/authStore";
 
 export function useAuth() {
+  const authStore = useAuthStore();
   const user: Ref<User | null> = ref(null);
   const error: Ref<string | null> = ref(null);
   const { notify } = useNotification();
@@ -21,6 +23,7 @@ export function useAuth() {
     error.value = null;
     try {
       const response = await authService.login(credentials);
+      authStore.setUser(response.user);
       user.value = response.user;
       notify({
         type: "success",
@@ -67,6 +70,7 @@ export function useAuth() {
     error.value = null;
     try {
       await authService.logout();
+      authStore.setUser(null);
       user.value = null;
       notify({
         type: "success",
