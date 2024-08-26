@@ -11,7 +11,6 @@ export default {
 
   async addNewToDo(todo: Omit<ToDoItem, "id">): Promise<void> {
     try {
-      console.log(todo);
       await jsonApiClient.post<void>("/todo", todo);
     } catch (error) {
       console.error("Failed to add new ToDo item", error);
