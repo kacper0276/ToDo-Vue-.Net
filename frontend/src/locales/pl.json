@@ -28,5 +28,14 @@
 
   "username": "Nazwa użytkownika",
   "repeat-password": "Powtórz hasło",
-  "passwords-must-be-the-same": "Hasła muszą być takie same"
+  "passwords-must-be-the-same": "Hasła muszą być takie same",
+
+  "successfully-logged-in": "Pomyślnie zalogowano",
+  "success": "Sukces",
+  "successfully-registered": "Pomyślnie zarejestrowano",
+  "successfully-logged-out": "Pomyślnie wylogowano",
+  "failed-to-login": "Nie udało się zalogować: {error}",
+  "failed-to-register": "Nie udało się zarejestrować: {error}",
+  "failed-to-logout": "Nie udało się wylogować: {error}",
+  "failed-to-fetch-user": "Nie udało się pobrać użytkownika: {error}"
 }
