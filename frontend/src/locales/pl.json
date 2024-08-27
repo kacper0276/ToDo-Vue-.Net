@@ -3,11 +3,13 @@
 
   "home": "Strona główna",
   "login": "Logowanie",
+  "logout": "Wyloguj się",
+  "to-dos": "Zadania do wykonania",
 
   "home-page": "Strona główna",
   "login-page": "Strona logowania",
   "not-found-page": "Nie znaleziono strony",
-  "logout": "Wyloguj się",
+  "to-dos-page": "Strona zadań do wykonania",
 
   "add-new-task": "Dodaj nowe zadanie",
 
