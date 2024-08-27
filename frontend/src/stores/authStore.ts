@@ -18,8 +18,6 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = null;
     loggedIn.value = false;
 
-    console.log("Test");
-
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("refreshToken");
     router.push("/login");
