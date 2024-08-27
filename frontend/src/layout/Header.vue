@@ -16,9 +16,7 @@
           <RouterLink to="/" class="nav-link" @click="closeMenu">{{
             t("home")
           }}</RouterLink>
-          <!-- Warunkowe wyświetlanie przycisków -->
           <template v-if="authStore.user">
-            <!-- Przycisk wylogowywania z klasą logout-button -->
             <button class="nav-link logout-button" @click="logout">
               {{ t("logout") }}
             </button>
@@ -28,6 +26,13 @@
               t("login")
             }}</RouterLink>
           </template>
+          <RouterLink
+            to="/to-dos"
+            class="nav-link"
+            @click="closeMenu"
+            v-if="authStore.user"
+            >{{ t("to-dos") }}</RouterLink
+          >
         </div>
       </div>
     </div>
@@ -35,9 +40,7 @@
     <!-- Desktop Menu -->
     <div class="desktop-menu">
       <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
-      <!-- Warunkowe wyświetlanie przycisków -->
       <template v-if="authStore.user">
-        <!-- Przycisk wylogowywania z klasą logout-button -->
         <button class="nav-link logout-button" @click="logout">
           {{ t("logout") }}
         </button>
@@ -45,6 +48,13 @@
       <template v-else>
         <RouterLink to="/login" class="nav-link">{{ t("login") }}</RouterLink>
       </template>
+      <RouterLink
+        to="/to-dos"
+        class="nav-link"
+        @click="closeMenu"
+        v-if="authStore.user"
+        >{{ t("to-dos") }}</RouterLink
+      >
     </div>
 
     <!-- Other Controls -->
