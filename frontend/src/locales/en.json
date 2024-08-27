@@ -3,11 +3,13 @@
 
   "home": "Home",
   "login": "Login",
+  "logout": "Logout",
+  "to-dos": "To-dos",
 
   "home-page": "Home page",
   "login-page": "Login page",
   "not-found-page": "Not found page",
-  "logout": "Logout",
+  "to-dos-page": "To-dos page",
 
   "add-new-task": "Add new task",
 
