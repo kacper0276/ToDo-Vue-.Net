@@ -1,8 +1,9 @@
-class WebSocketService {
+export default class WebSocketService {
   private socket: WebSocket | null = null;
   private messageHandler: ((message: string) => void) | null = null;
   private errorHandler: ((error: Event) => void) | null = null;
   private closeHandler: ((event: CloseEvent) => void) | null = null;
+  private openHandler: (() => void) | null = null;
 
   constructor(private url: string) {}
 
@@ -13,6 +14,12 @@ class WebSocketService {
     }
 
     this.socket = new WebSocket(this.url);
+
+    this.socket.onopen = () => {
+      if (this.openHandler) {
+        this.openHandler();
+      }
+    };
 
     this.socket.onmessage = (event) => {
       if (this.messageHandler) {
@@ -62,6 +69,8 @@ class WebSocketService {
   setCloseHandler(handler: (event: CloseEvent) => void) {
     this.closeHandler = handler;
   }
-}
 
-export default WebSocketService;
+  setOpenHandler(handler: () => void) {
+    this.openHandler = handler;
+  }
+}

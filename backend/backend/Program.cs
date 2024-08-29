@@ -29,8 +29,6 @@ namespace backend
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddSingleton<WebSocketServer>();
-
             builder.Services.AddWebSockets(options =>
             {
                 options.KeepAliveInterval = TimeSpan.FromMinutes(2);
@@ -59,6 +57,8 @@ namespace backend
             builder.Services.AddScoped<IToDoService, ToDoService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+
+            builder.Services.AddSingleton<WebSocketService>();
 
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
@@ -111,15 +111,14 @@ namespace backend
 
             app.UseAuthorization();
 
-            // Enable WebSockets
+            // Add WebSocket middleware
             app.UseWebSockets();
 
-            // Add WebSocket handling endpoint
-            var webSocketServer = new WebSocketServer();
-            app.Map("/ws", async context =>
+            // Map WebSocket endpoint
+            app.Map("/api/ws/connect", async context =>
             {
-                var webSocketServer = context.RequestServices.GetRequiredService<WebSocketServer>();
-                await webSocketServer.HandleWebSocketConnection(context);
+                var webSocketService = context.RequestServices.GetRequiredService<WebSocketService>();
+                await webSocketService.HandleWebSocketConnection(context);
             });
 
             app.MapControllers();

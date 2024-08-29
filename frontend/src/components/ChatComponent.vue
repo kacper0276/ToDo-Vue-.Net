@@ -1,23 +1,42 @@
 <script setup lang="ts">
-import { ref, onBeforeUnmount, watch } from "vue";
+import { ref, onBeforeUnmount, watch, computed } from "vue";
 import WebSocketService from "@/services/WebSocketService";
+import { useAuthStore } from "@/stores/authStore";
+
+const authStore = useAuthStore();
+
+const role = computed(() => authStore.user?.role || "GUEST");
+
+console.log(role.value);
 
 const props = defineProps<{
   show: boolean;
   onClose: () => void;
 }>();
 
-const wsService = new WebSocketService("ws://localhost:5252/ws");
-
 const messages = ref<string[]>([]);
 const inputMessage = ref<string>("");
 const statusMessage = ref<string>("");
+
+let wsService: WebSocketService | null = null;
 
 const connectWebSocket = () => {
   statusMessage.value = "Connecting...";
 
   if (wsService) {
+    disconnectWebSocket();
+  }
+
+  wsService = new WebSocketService(
+    `ws://localhost:5252/api/ws/connect?role=${role.value}`
+  );
+
+  if (wsService) {
     wsService.connect();
+
+    wsService.setOpenHandler(() => {
+      statusMessage.value = "Connected.";
+    });
 
     wsService.setMessageHandler((message) => {
       console.log("Message from server:", message);
@@ -33,17 +52,13 @@ const connectWebSocket = () => {
       console.log("WebSocket connection closed:", event);
       statusMessage.value = "WebSocket connection closed.";
     });
-
-    // Assuming you have a way to determine when the WebSocket is ready
-    wsService.setOpenHandler(() => {
-      statusMessage.value = "Connected.";
-    });
   }
 };
 
 const disconnectWebSocket = () => {
   if (wsService) {
     wsService.disconnect();
+    wsService = null;
     statusMessage.value = "Disconnecting...";
   }
 };
@@ -59,15 +74,23 @@ watch(
   }
 );
 
+watch(role, () => {
+  if (props.show) {
+    connectWebSocket();
+  }
+});
+
 onBeforeUnmount(() => {
   disconnectWebSocket();
 });
 
 const sendMessage = () => {
   if (inputMessage.value.trim() === "") return;
-  wsService.sendMessage(inputMessage.value);
-  messages.value.push(`You: ${inputMessage.value}`);
-  inputMessage.value = "";
+  if (wsService) {
+    wsService.sendMessage(inputMessage.value);
+    messages.value.push(`You: ${inputMessage.value}`);
+    inputMessage.value = "";
+  }
 };
 
 const closeChat = () => {
@@ -102,6 +125,7 @@ const closeChat = () => {
     </div>
   </div>
 </template>
+
 <style scoped>
 * {
   color: #000;

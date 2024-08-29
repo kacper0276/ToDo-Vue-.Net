@@ -9,5 +9,6 @@ declare module "@vue/runtime-core" {
     LoadingSpinner: typeof import("./src/components/LoadingSpinner.vue")["default"];
     LoginForm: typeof import("./src/components/LoginForm.vue")["default"];
     RegisterForm: typeof import("./src/components/RegisterForm.vue")["default"];
+    ChatComponent: typeof import("./src/components/ChatComponent.vue")["default"];
   }
 }
