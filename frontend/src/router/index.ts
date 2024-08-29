@@ -6,6 +6,8 @@ import RegisterView from "@/views/RegisterView.vue";
 import ToDoView from "@/views/ToDoView.vue";
 import AdminPanelView from "@/views/AdminPanelView.vue";
 import UserPanelView from "@/views/UserPanelView.vue";
+import { authGuard } from "@/guards/authGuard";
+import { adminGuard } from "@/guards/adminGuard";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,16 +31,19 @@ const router = createRouter({
       path: "/to-dos",
       name: "to-dos",
       component: ToDoView,
+      beforeEnter: [authGuard],
     },
     {
       path: "/admin-panel",
       name: "admin-panel",
       component: AdminPanelView,
+      beforeEnter: [authGuard, adminGuard],
     },
     {
       path: "/user-panel",
       name: "user-panel",
       component: UserPanelView,
+      beforeEnter: [authGuard],
     },
     {
       path: "/:pathMatch(.*)*",
