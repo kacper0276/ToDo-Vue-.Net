@@ -94,6 +94,16 @@ namespace backend
 
             app.UseAuthorization();
 
+            // Enable WebSockets
+            app.UseWebSockets();
+
+            // Add WebSocket handling endpoint
+            var webSocketServer = new WebSocketServer();
+            app.Map("/ws", async context =>
+            {
+                await webSocketServer.HandleWebSocketConnection(context);
+            });
+
             app.MapControllers();
 
             app.Run();
