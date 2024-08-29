@@ -3,6 +3,7 @@ using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -28,6 +29,13 @@ namespace backend
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddSingleton<WebSocketServer>();
+
+            builder.Services.AddWebSockets(options =>
+            {
+                options.KeepAliveInterval = TimeSpan.FromMinutes(2);
+            });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("FrontEndClient", policyBuilder =>
@@ -37,6 +45,15 @@ namespace backend
                 .AllowAnyOrigin()
                 );
             });
+
+            // Add EmailService
+            var smtpSettings = builder.Configuration.GetSection("SmtpSettings");
+            builder.Services.AddSingleton(new EmailService(
+                smtpSettings["SmtpServer"],
+                int.Parse(smtpSettings["SmtpPort"]),
+                smtpSettings["Username"],
+                smtpSettings["Password"]
+            ));
 
             // Services
             builder.Services.AddScoped<IToDoService, ToDoService>();
@@ -101,6 +118,7 @@ namespace backend
             var webSocketServer = new WebSocketServer();
             app.Map("/ws", async context =>
             {
+                var webSocketServer = context.RequestServices.GetRequiredService<WebSocketServer>();
                 await webSocketServer.HandleWebSocketConnection(context);
             });
 
