@@ -4,9 +4,20 @@ import Header from "./layout/Header.vue";
 import Layout from "./layout/Layout.vue";
 import Footer from "./layout/Footer.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import ChatComponent from "@/components/ChatComponent.vue";
 import { provide, ref } from "vue";
 
 const isLoading = ref(false);
+const isChatVisible = ref(false);
+
+const showChat = () => {
+  isChatVisible.value = true;
+};
+
+const closeChat = () => {
+  isChatVisible.value = false;
+};
+
 provide("isLoading", isLoading);
 </script>
 
@@ -24,6 +35,32 @@ provide("isLoading", isLoading);
   </Layout>
   <notifications />
   <LoadingSpinner :visible="isLoading" />
+
+  <button @click="showChat" class="chat-toggle-button">💬</button>
+
+  <ChatComponent :show="isChatVisible" :onClose="closeChat" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.chat-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #42b97c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-toggle-button:hover {
+  background-color: #36a56d;
+}
+</style>
