@@ -10,5 +10,6 @@ declare module "@vue/runtime-core" {
     LoginForm: typeof import("./src/components/LoginForm.vue")["default"];
     RegisterForm: typeof import("./src/components/RegisterForm.vue")["default"];
     ChatComponent: typeof import("./src/components/ChatComponent.vue")["default"];
+    UserToDoGroup: typeof import("./src/components/UserToDoGroup.vue")["default"];
   }
 }
