@@ -5,10 +5,12 @@ import Layout from "./layout/Layout.vue";
 import Footer from "./layout/Footer.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import ChatComponent from "@/components/ChatComponent.vue";
-import { provide, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
+import { useAuthStore } from "./stores/authStore";
 
 const isLoading = ref(false);
 const isChatVisible = ref(false);
+const authStore = useAuthStore();
 
 const showChat = () => {
   isChatVisible.value = true;
@@ -19,6 +21,21 @@ const closeChat = () => {
 };
 
 provide("isLoading", isLoading);
+
+const initializeAuth = async () => {
+  isLoading.value = true;
+  try {
+    await authStore.initializeAuth();
+  } catch (error) {
+    console.error("Błąd inicjalizacji autoryzacji:", error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  initializeAuth();
+});
 </script>
 
 <template>
