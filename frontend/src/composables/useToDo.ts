@@ -102,6 +102,8 @@ export function useToDo() {
     }
   };
 
+  const fetchToDoGroups = async () => {};
+
   return {
     todos,
     todo,
@@ -111,5 +113,6 @@ export function useToDo() {
     addToDoItem,
     toggleToDoStatus,
     deleteToDoItem,
+    fetchToDoGroups,
   };
 }
