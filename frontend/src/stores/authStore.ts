@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import type { User } from "@/types/Auth.type";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { jsonApiClient } from "@/api";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<User | null>(null);
@@ -11,7 +12,12 @@ export const useAuthStore = defineStore("auth", () => {
   const setUser = (userData: User | null) => {
     user.value = userData;
     loggedIn.value = !!userData;
-    router.push("/");
+
+    if (userData) {
+      router.push("/");
+    } else {
+      router.push("/login");
+    }
   };
 
   const logout = () => {
@@ -23,10 +29,26 @@ export const useAuthStore = defineStore("auth", () => {
     router.push("/login");
   };
 
+  const initializeAuth = async () => {
+    const token = sessionStorage.getItem("authToken");
+
+    if (token) {
+      try {
+        const response = await jsonApiClient.get<User>("user/me");
+
+        setUser(response.data);
+      } catch (err) {
+        console.error("Błąd inicjalizacji autoryzacji:", err);
+        logout();
+      }
+    }
+  };
+
   return {
     user,
     loggedIn,
     setUser,
     logout,
+    initializeAuth,
   };
 });

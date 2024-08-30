@@ -9,6 +9,8 @@ export default {
     return response.data.items;
   },
 
+  async fetchtoDoGroups() {},
+
   async addNewToDo(todo: Omit<ToDoItem, "id">): Promise<void> {
     try {
       await jsonApiClient.post<void>("/todo", todo);
