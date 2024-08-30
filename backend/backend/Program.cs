@@ -57,6 +57,7 @@ namespace backend
             builder.Services.AddScoped<IToDoService, ToDoService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IToDoGroupService, ToDoGroupService>();
 
             builder.Services.AddSingleton<WebSocketService>();
 
