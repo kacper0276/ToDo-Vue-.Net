@@ -1,8 +1,10 @@
 ﻿using backend.Entities;
 using backend.Models;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -92,6 +94,30 @@ namespace backend.Controllers
 
             await _userService.DeleteUserAsync(id);
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (int.TryParse(userIdString, out int userId))
+            {
+                var user = await _userService.GetUserByIdAsync(userId);
+
+                if (user != null)
+                {
+                    return Ok(new UserDto
+                    {
+                        Email = user.Email,
+                        Login = user.Login,
+                        Role = user.Role
+                    });
+                }
+                return NotFound("User not found");
+            }
+            return BadRequest("Invalid user ID");
         }
     }
 }
