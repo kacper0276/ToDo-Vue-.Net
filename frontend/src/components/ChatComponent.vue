@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount, watch, computed } from "vue";
-import WebSocketService from "@/services/WebSocketService";
+import WebSocketService from "@/services/webSocketService";
 import { useAuthStore } from "@/stores/authStore";
 
 const authStore = useAuthStore();
