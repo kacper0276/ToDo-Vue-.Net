@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type { ToDoItem } from "@/types/ToDoItem.type";
 import { useToDo } from "@/composables/useToDo";
+import { ToDoGroup } from "@/types/ToDoGroup.type";
 
 const { addToDoItem } = useToDo();
 
@@ -15,12 +16,20 @@ const newToDo = ref<Omit<ToDoItem, "id">>({
   title: "",
   description: "",
   isComplete: false,
+  toDoGroupId: 0,
+  toDoGroup: new ToDoGroup(1),
 });
 
 const addTodoItem = async () => {
   if (newToDo.value.title.trim()) {
     await addToDoItem(newToDo.value);
-    newToDo.value = { title: "", description: "", isComplete: false };
+    newToDo.value = {
+      title: "",
+      description: "",
+      isComplete: false,
+      toDoGroupId: 0,
+      toDoGroup: new ToDoGroup(1),
+    };
     await props.onRefresh();
     props.onClose();
   }
