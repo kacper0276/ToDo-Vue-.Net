@@ -1,4 +1,5 @@
-﻿using backend.Services;
+﻿using backend.Entities;
+using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,5 +23,25 @@ namespace backend.Controllers
             var result = await _service.GetAllAsync(pageNumber, pageSize);
             return Ok(result);
         }
+
+        [HttpPost]
+        [Authorize(Policy = "AdminOrUser")]
+        public async Task<IActionResult> Create([FromBody] ToDoGroup group)
+        {
+            if (group == null)
+            {
+                return BadRequest("ToDoGroup object is null.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var groupId = await _service.CreateAsync(group);
+
+            return StatusCode(201, new { Id = groupId });
+        }
+
     }
 }

@@ -1,9 +1,12 @@
+import type { ToDoGroup } from "./ToDoGroup.type";
+
 export class User {
   constructor(
     public id: number,
     public email: string,
     public login: string,
-    public role: string
+    public role: string,
+    public toDoGroups: ToDoGroup[] = []
   ) {}
 }
 
