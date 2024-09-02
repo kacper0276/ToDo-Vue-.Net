@@ -27,11 +27,11 @@
             }}</RouterLink>
           </template>
           <RouterLink
-            to="/to-dos"
+            to="/create-todos-group"
             class="nav-link"
             @click="closeMenu"
             v-if="authStore.user"
-            >{{ t("to-dos") }}</RouterLink
+            >{{ t("create-todos-group") }}</RouterLink
           >
         </div>
       </div>
@@ -49,11 +49,11 @@
         <RouterLink to="/login" class="nav-link">{{ t("login") }}</RouterLink>
       </template>
       <RouterLink
-        to="/to-dos"
+        to="/create-todos-group"
         class="nav-link"
         @click="closeMenu"
         v-if="authStore.user"
-        >{{ t("to-dos") }}</RouterLink
+        >{{ t("create-todos-group") }}</RouterLink
       >
     </div>
 
