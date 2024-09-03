@@ -5,6 +5,7 @@
   "login": "Logowanie",
   "logout": "Wyloguj się",
   "to-dos": "Zadania do wykonania",
+  "create-todos-group": "Utwórz grupę zadań",
 
   "home-page": "Strona główna",
   "login-page": "Strona logowania",
@@ -40,5 +41,16 @@
   "failed-to-login": "Nie udało się zalogować: {error}",
   "failed-to-register": "Nie udało się zarejestrować: {error}",
   "failed-to-logout": "Nie udało się wylogować: {error}",
-  "failed-to-fetch-user": "Nie udało się pobrać użytkownika: {error}"
+  "failed-to-fetch-user": "Nie udało się pobrać użytkownika: {error}",
+
+  "create-new-todos-group": "Utwórz nową grupę zadań",
+  "user-not-authenticated": "Użytkownik nie zautoryzowany",
+  "name": "Nazwa",
+  "description": "Opis",
+  "visible": "Widoczność",
+  "submit": "Wyślij",
+  "successfully-added-group": "Pomyślnie dodano grupę",
+  "failed-to-add-group": "Wystąpił błąd podczas dodawania grupy",
+
+  "successfully-deleted-group": "Pomyślnie usunięto grupę"
 }
