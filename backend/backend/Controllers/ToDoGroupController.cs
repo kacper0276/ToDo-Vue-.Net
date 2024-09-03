@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-    [Route("api/todogroup")]
+    [Route("api/todo-group")]
     [ApiController]
     public class ToDoGroupController : ControllerBase
     {
