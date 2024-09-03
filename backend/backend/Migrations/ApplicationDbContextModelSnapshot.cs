@@ -36,10 +36,15 @@ namespace backend.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ToDoGroups");
                 });
@@ -99,6 +104,15 @@ namespace backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("backend.Entities.ToDoGroup", b =>
+                {
+                    b.HasOne("backend.Entities.User", "User")
+                        .WithMany("ToDoGroups")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("backend.Entities.ToDoItem", b =>
                 {
                     b.HasOne("backend.Entities.ToDoGroup", "ToDoGroup")
@@ -113,6 +127,11 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.ToDoGroup", b =>
                 {
                     b.Navigation("ToDoItems");
+                });
+
+            modelBuilder.Entity("backend.Entities.User", b =>
+                {
+                    b.Navigation("ToDoGroups");
                 });
 #pragma warning restore 612, 618
         }
