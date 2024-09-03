@@ -76,7 +76,7 @@ namespace backend.Services
             {
                 Token = accessToken,
                 RefreshToken = refreshToken,
-                User = new UserDto { Email = user.Email, Login = user.Login, Role = user.Role }
+                User = new UserDto { Id = user.Id, Email = user.Email, Login = user.Login, Role = user.Role }
             };
         }
 
@@ -115,7 +115,7 @@ namespace backend.Services
             {
                 Token = newAccessToken,
                 RefreshToken = newRefreshToken,
-                User = new UserDto { Email = user.Email, Login = user.Login, Role = user.Role }
+                User = new UserDto { Id = user.Id, Email = user.Email, Login = user.Login, Role = user.Role }
             };
         }
 
