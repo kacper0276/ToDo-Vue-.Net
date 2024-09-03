@@ -9,11 +9,19 @@
       <input type="text" id="description" v-model="form.description" />
     </div>
     <div class="input-group">
-      <label for="visible">{{ t("visible") }}</label>
-      <input type="checkbox" id="visible" v-model="form.visible" />
+      <label for="visible-switch">{{ t("visible") }}</label>
+      <label class="visible-switch">
+        <input
+          type="checkbox"
+          id="visible-switch"
+          v-model="form.visible"
+          class="slider-checkbox"
+        />
+        <span class="slider"></span>
+      </label>
     </div>
+
     <button type="submit" :disabled="loading">{{ t("submit") }}</button>
-    <p v-if="message">{{ message }}</p>
   </form>
 </template>
 
@@ -30,11 +38,8 @@ const { t } = useI18n();
 
 const form = ref<ToDoGroup>(new ToDoGroup(0, "", "", false));
 
-const message = ref<string>("");
-
 const handleSubmit = async () => {
   if (user === null) {
-    message.value = t("user-not-authenticated");
     return;
   }
 
@@ -42,13 +47,10 @@ const handleSubmit = async () => {
     try {
       form.value.userId = user.id;
       await addToDoGroup(form.value);
-      message.value = t("group-created-successfully");
       form.value = new ToDoGroup(0, "", "", false);
     } catch (err) {
       if (err instanceof Error) {
-        message.value = `Error: ${err.message || t("error-occurred")}`;
       } else {
-        message.value = t("error-occurred");
       }
     }
   }
@@ -70,6 +72,7 @@ const handleSubmit = async () => {
 .input-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .input-group label {
@@ -77,7 +80,7 @@ const handleSubmit = async () => {
   color: rgb(66, 184, 131);
 }
 
-.input-group input {
+.input-group input[type="text"] {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid rgb(66, 184, 131);
@@ -105,7 +108,54 @@ button:hover:not(:disabled) {
   background-color: rgb(36, 136, 83);
 }
 
-p {
-  color: red;
+.visible-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.visible-switch input[type="checkbox"] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: grey;
+  transition: 0.4s;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: rgb(66, 184, 131);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
 }
 </style>

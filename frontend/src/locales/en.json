@@ -5,6 +5,7 @@
   "login": "Login",
   "logout": "Logout",
   "to-dos": "To-dos",
+  "create-todos-group": "Create to-dos group",
 
   "home-page": "Home page",
   "login-page": "Login page",
@@ -40,5 +41,16 @@
   "failed-to-login": "Failed to log in: {error}",
   "failed-to-register": "Failed to register: {error}",
   "failed-to-logout": "Failed to log out: {error}",
-  "failed-to-fetch-user": "Failed to fetch user: {error}"
+  "failed-to-fetch-user": "Failed to fetch user: {error}",
+
+  "create-new-todos-group": "Create new to-dos group",
+  "user-not-authenticated": "User not authenticated",
+  "name": "Name",
+  "description": "Description",
+  "visible": "Visble",
+  "submit": "Submit",
+  "successfully-added-group": "Successfully added group",
+  "failed-to-add-group": "Failed to add group",
+
+  "successfully-deleted-group": "Successfully deleted group"
 }
