@@ -6,7 +6,7 @@ export class ToDoGroup {
     public id: number,
     public name?: string,
     public description?: string,
-    public visible?: boolean,
+    public visible: boolean = false,
     public userId?: number,
     public user?: User,
     public toDoItems: ToDoItem[] = []
