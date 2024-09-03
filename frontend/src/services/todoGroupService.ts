@@ -5,7 +5,7 @@ import type { ToDoGroup } from "@/types/ToDoGroup.type";
 export default {
   async fetchToDoGroups(): Promise<ToDoGroup[]> {
     try {
-      const response = await jsonApiClient.get<IServerResponse>("/todo-groups");
+      const response = await jsonApiClient.get<IServerResponse>("/todo-group");
       return response.data.items;
     } catch (error) {
       console.error("Failed to fetch ToDo groups", error);
@@ -15,7 +15,7 @@ export default {
 
   async addNewToDoGroup(groupData: Omit<ToDoGroup, "id">): Promise<void> {
     try {
-      await jsonApiClient.post<void>("/todo-groups", groupData);
+      await jsonApiClient.post<void>("/todo-group", groupData);
     } catch (error) {
       console.error("Failed to add new ToDo group", error);
       throw error;
@@ -24,7 +24,7 @@ export default {
 
   async deleteToDoGroup(id: number): Promise<void> {
     try {
-      await jsonApiClient.delete<void>(`/todo-groups/${id}`);
+      await jsonApiClient.delete<void>(`/todo-group/${id}`);
     } catch (error) {
       console.error("Failed to delete ToDo group", error);
       throw error;
