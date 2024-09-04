@@ -96,6 +96,32 @@ namespace backend.Controllers
             return NoContent();
         }
 
+        [HttpGet("search/{phrase}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsersByLoginPhrase(string phrase)
+        {
+            var users = await _userService.GetUsersByLoginPhraseAsync(phrase);
+
+            if (users == null || !users.Any())
+            {
+                return NotFound("No users found matching the given phrase");
+            }
+
+            return Ok(users);
+        }
+
+        [HttpGet("find-by-login/{login}")]
+        public async Task<ActionResult<User?>> GetUserByLogin(string login)
+        {
+            var user = await _userService.GetUserByLoginAsync(login);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return Ok(user);
+        }
+
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
