@@ -52,5 +52,6 @@
   "successfully-added-group": "Pomyślnie dodano grupę",
   "failed-to-add-group": "Wystąpił błąd podczas dodawania grupy",
 
-  "successfully-deleted-group": "Pomyślnie usunięto grupę"
+  "successfully-deleted-group": "Pomyślnie usunięto grupę",
+  "failed-to-delete-group": "Wystąpił błąd podczas usuwania grupy"
 }
