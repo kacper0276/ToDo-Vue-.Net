@@ -33,6 +33,20 @@
             v-if="authStore.user"
             >{{ t("create-todos-group") }}</RouterLink
           >
+          <RouterLink
+            to="/user-panel"
+            class="nav-link"
+            @click="closeMenu"
+            v-if="authStore.user"
+            >{{ t("user-panel") }}</RouterLink
+          >
+          <RouterLink
+            to="/admin-panel"
+            class="nav-link"
+            @click="closeMenu"
+            v-if="authStore.user?.role === 'ADMIN'"
+            >{{ t("admin-panel") }}</RouterLink
+          >
         </div>
       </div>
     </div>
@@ -51,9 +65,17 @@
       <RouterLink
         to="/create-todos-group"
         class="nav-link"
-        @click="closeMenu"
         v-if="authStore.user"
         >{{ t("create-todos-group") }}</RouterLink
+      >
+      <RouterLink to="/user-panel" class="nav-link" v-if="authStore.user">{{
+        t("user-panel")
+      }}</RouterLink>
+      <RouterLink
+        to="/admin-panel"
+        class="nav-link"
+        v-if="authStore.user?.role === 'ADMIN'"
+        >{{ t("admin-panel") }}</RouterLink
       >
     </div>
 
