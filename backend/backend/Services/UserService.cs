@@ -13,6 +13,8 @@ namespace backend.Services
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User?> GetUserByIdAsync(int id);
+        Task<User?> GetUserByLoginAsync(string login);
+        Task<List<User>> GetUsersByLoginPhraseAsync(string phrase);
         Task<User> RegisterUser(User user);
         Task<LoginResponse?> LoginAsync(string email, string password);
         Task<LoginResponse?> RefreshTokenAsync(string refreshToken);
@@ -43,6 +45,18 @@ namespace backend.Services
         public async Task<User?> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id) ?? null;
+        }
+
+        public async Task<User?> GetUserByLoginAsync(string login)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+        }
+
+        public async Task<List<User>> GetUsersByLoginPhraseAsync(string phrase)
+        {
+            return await _context.Users
+                .Where(u => u.Login.Contains(phrase))
+                .ToListAsync();
         }
 
         public async Task<User> RegisterUser(User user)
