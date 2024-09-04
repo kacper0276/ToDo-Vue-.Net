@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import LoginForm from "@/components/LoginForm.vue";
+import LoginForm from "@/components/forms/LoginForm.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useI18n } from "vue-i18n";
 

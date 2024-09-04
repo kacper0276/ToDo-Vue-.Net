@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ToDoItemComponent from "@/components/ToDoItem.vue";
-import AddTodoModal from "@/components/AddTodoModal.vue";
+import ToDoItemComponent from "@/components/todo/ToDoItem.vue";
+import AddTodoModal from "@/components/modals/AddTodoModal.vue";
 import { onMounted, ref } from "vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useToDo } from "@/composables/useToDo";
