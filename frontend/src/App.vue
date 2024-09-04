@@ -3,8 +3,8 @@ import { RouterView } from "vue-router";
 import Header from "./layout/Header.vue";
 import Layout from "./layout/Layout.vue";
 import Footer from "./layout/Footer.vue";
-import LoadingSpinner from "@/components/LoadingSpinner.vue";
-import ChatComponent from "@/components/ChatComponent.vue";
+import LoadingSpinner from "@/components/ui/LoadingSpinner.vue";
+import ChatComponent from "@/components/chat/ChatComponent.vue";
 import { onMounted, provide, ref } from "vue";
 import { useAuthStore } from "./stores/authStore";
 
