@@ -36,6 +36,29 @@ export function useToDoGroup() {
     }
   };
 
+  const fetchUserToDoGroups = async (userId: string): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await todoGroupService.fetchUserToDoGroup(userId);
+      groups.value = response;
+      notify({
+        type: "success",
+        title: "Success",
+        text: t("successfully-fetched-groups"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: "Error",
+        text: t("failed-to-fetch-groups", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
   const addToDoGroup = async (
     groupData: Omit<ToDoGroup, "id">
   ): Promise<void> => {
@@ -88,6 +111,7 @@ export function useToDoGroup() {
     loading,
     error,
     fetchToDoGroups,
+    fetchUserToDoGroups,
     addToDoGroup,
     deleteToDoGroup,
   };
