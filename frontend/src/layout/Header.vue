@@ -47,6 +47,13 @@
             v-if="authStore.user?.role === 'ADMIN'"
             >{{ t("admin-panel") }}</RouterLink
           >
+          <RouterLink
+            :to="`/user-profile/${user?.login}`"
+            class="nav-link"
+            v-if="user"
+            @click="closeMenu"
+            >{{ t("user-profile") }}</RouterLink
+          >
         </div>
       </div>
     </div>
@@ -77,6 +84,12 @@
         v-if="authStore.user?.role === 'ADMIN'"
         >{{ t("admin-panel") }}</RouterLink
       >
+      <RouterLink
+        :to="`/user-profile/${user?.login}`"
+        class="nav-link"
+        v-if="user"
+        >{{ t("user-profile") }}</RouterLink
+      >
     </div>
 
     <!-- Other Controls -->
@@ -102,6 +115,8 @@ import { useAuthStore } from "@/stores/authStore";
 const { t, locale } = useI18n();
 
 const authStore = useAuthStore();
+
+const { user } = authStore;
 
 const selectedLang = ref(locale.value);
 const isDarkTheme = ref(false);
