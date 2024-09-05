@@ -9,6 +9,7 @@ import UserPanelView from "@/views/user/UserPanelView.vue";
 import { authGuard } from "@/guards/authGuard";
 import { adminGuard } from "@/guards/adminGuard";
 import AddNewToDosGroupView from "@/views/todo/AddNewToDosGroupView.vue";
+import UserProfileView from "@/views/user/UserProfileView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +52,11 @@ const router = createRouter({
       name: "todo-gropu-create",
       component: AddNewToDosGroupView,
       beforeEnter: [authGuard],
+    },
+    {
+      path: "/user-profile/:username",
+      name: "user-profile",
+      component: UserProfileView,
     },
     {
       path: "/:pathMatch(.*)*",
