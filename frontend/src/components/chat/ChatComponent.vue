@@ -7,8 +7,6 @@ const authStore = useAuthStore();
 
 const role = computed(() => authStore.user?.role || "GUEST");
 
-console.log(role.value);
-
 const props = defineProps<{
   show: boolean;
   onClose: () => void;
