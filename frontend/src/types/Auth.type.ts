@@ -1,5 +1,7 @@
 import type { ToDoGroup } from "./ToDoGroup.type";
 
+// TODO: Create LoginResponse (Token, RefreshToken, User)
+
 export class User {
   constructor(
     public id: number,

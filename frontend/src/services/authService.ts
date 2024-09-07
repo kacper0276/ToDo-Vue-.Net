@@ -4,6 +4,7 @@ import type {
   RegisterCredentials,
 } from "@/types/Auth.type";
 import { jsonApiClient } from "@/api";
+import type { IServerResponseSimple } from "@/types/ServerResponseSimple.type";
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {
@@ -17,8 +18,11 @@ export default {
   },
 
   async register(credentials: RegisterCredentials): Promise<{ user: User }> {
-    const response = await jsonApiClient.post(`/user/register`, credentials);
-    const { user } = response.data;
+    const response = await jsonApiClient.post<IServerResponseSimple<User>>(
+      `/user/register`,
+      credentials
+    );
+    const user = response.data.item;
 
     return { user };
   },

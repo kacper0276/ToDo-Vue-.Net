@@ -1,11 +1,14 @@
 import { jsonApiClient } from "@/api";
-import type { IServerResponse } from "@/types/ServerResponse.type";
+import type { IServerResponseList } from "@/types/ServerResponseList.type";
+import type { IServerResponsePaginated } from "@/types/ServerResponsePaginated.type";
 import { ToDoGroup } from "@/types/ToDoGroup.type";
 
 export default {
   async fetchToDoGroups(): Promise<ToDoGroup[]> {
     try {
-      const response = await jsonApiClient.get<IServerResponse>("/todo-group");
+      const response = await jsonApiClient.get<
+        IServerResponsePaginated<ToDoGroup>
+      >("/todo-group");
       return response.data.items;
     } catch (error) {
       console.error("Failed to fetch ToDo groups", error);
@@ -31,14 +34,27 @@ export default {
     }
   },
 
-  async fetchUserToDoGroup(userId: string): Promise<ToDoGroup[]> {
+  async fetchUserToDoGroupByUserId(userId: number): Promise<ToDoGroup[]> {
     try {
-      const resopnse = await jsonApiClient.get<IServerResponse>(
-        `/todo-group/${userId}`
+      const resopnse = await jsonApiClient.get<IServerResponseList<ToDoGroup>>(
+        `/todo-group/by-user-id/${userId}`
       );
       return resopnse.data.items;
     } catch (error) {
       console.error("Failed to fetch user toDo group", error);
+      throw error;
+    }
+  },
+
+  async fetchUserToDoGroupsByUsername(username: string): Promise<ToDoGroup[]> {
+    try {
+      const response = await jsonApiClient.get<IServerResponseList<ToDoGroup>>(
+        `/todo-group/by-login/${username}`
+      );
+
+      return response.data.items;
+    } catch (error) {
+      console.error("Error");
       throw error;
     }
   },
