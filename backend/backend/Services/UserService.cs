@@ -11,11 +11,11 @@ namespace backend.Services
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<User?> GetUserByIdAsync(int id);
-        Task<User?> GetUserByLoginAsync(string login);
-        Task<List<User>> GetUsersByLoginPhraseAsync(string phrase);
-        Task<User> RegisterUser(User user);
+        Task<ListResponse<User>> GetAllUsersAsync();
+        Task<SimpleResponse<User>> GetUserByIdAsync(int id);
+        Task<SimpleResponse<User>> GetUserByLoginAsync(string login);
+        Task<ListResponse<User>> GetUsersByLoginPhraseAsync(string phrase);
+        Task<SimpleResponse<User>> RegisterUser(User user);
         Task<LoginResponse?> LoginAsync(string email, string password);
         Task<LoginResponse?> RefreshTokenAsync(string refreshToken);
         Task UpdateUserAsync(User user);
@@ -37,36 +37,40 @@ namespace backend.Services
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<ListResponse<User>> GetAllUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+            return new ListResponse<User> { Items = users };
         }
 
-        public async Task<User?> GetUserByIdAsync(int id)
+        public async Task<SimpleResponse<User>> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id) ?? null;
+            var user = await _context.Users.FindAsync(id);
+            return new SimpleResponse<User> { Item = user };
         }
 
-        public async Task<User?> GetUserByLoginAsync(string login)
+        public async Task<SimpleResponse<User>> GetUserByLoginAsync(string login)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+            return new SimpleResponse<User> { Item = user };
         }
 
-        public async Task<List<User>> GetUsersByLoginPhraseAsync(string phrase)
+        public async Task<ListResponse<User>> GetUsersByLoginPhraseAsync(string phrase)
         {
-            return await _context.Users
+            var users = await _context.Users
                 .Where(u => u.Login.Contains(phrase))
                 .ToListAsync();
+
+            return new ListResponse<User> { Items = users };
         }
 
-        public async Task<User> RegisterUser(User user)
+        public async Task<SimpleResponse<User>> RegisterUser(User user)
         {
             user.Password = _passwordHasher.HashPassword(user, user.Password);
-
             user.Role = "USER";
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return user;
+            return new SimpleResponse<User> { Item = user };
         }
 
         public async Task<LoginResponse?> LoginAsync(string email, string password)

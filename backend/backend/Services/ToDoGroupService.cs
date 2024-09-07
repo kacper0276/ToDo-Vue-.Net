@@ -7,9 +7,9 @@ namespace backend.Services
     public interface IToDoGroupService
     {
         Task<int> CreateAsync(ToDoGroup group);
-        Task<ToDoGroup?> GetByIdAsync(int id);
-        Task<List<ToDoGroup>> GetByLoginAsync(string login);
-        Task<List<ToDoGroup>> GetByUserIdAsync(int userId); 
+        Task<SimpleResponse<ToDoGroup>> GetByIdAsync(int id);
+        Task<ListResponse<ToDoGroup>> GetByLoginAsync(string login);
+        Task<ListResponse<ToDoGroup>> GetByUserIdAsync(int userId);
         Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoGroup group);
         Task<bool> DeleteAsync(int id);
@@ -28,27 +28,37 @@ namespace backend.Services
             return group.Id;
         }
 
-        public async Task<ToDoGroup?> GetByIdAsync(int id)
+        public async Task<SimpleResponse<ToDoGroup>> GetByIdAsync(int id)
         {
-            return await _context.ToDoGroups.FindAsync(id);
+            var group = await _context.ToDoGroups.FindAsync(id);
+            return new SimpleResponse<ToDoGroup>
+            {
+                Item = group
+            };
         }
 
-        public async Task<List<ToDoGroup>> GetByLoginAsync(string login)
+        public async Task<ListResponse<ToDoGroup>> GetByLoginAsync(string login)
         {
             var results = await _context.ToDoGroups
                 .Where(tdg => tdg.User.Login == login)
                 .ToListAsync();
 
-            return results;
+            return new ListResponse<ToDoGroup>
+            {
+                Items = results
+            };
         }
 
-        public async Task<List<ToDoGroup>> GetByUserIdAsync(int userId)
+        public async Task<ListResponse<ToDoGroup>> GetByUserIdAsync(int userId)
         {
             var results = await _context.ToDoGroups
                 .Where(tdg => tdg.User.Id == userId)
                 .ToListAsync();
 
-            return results;
+            return new ListResponse<ToDoGroup>
+            {
+                Items = results
+            };
         }
 
         public async Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize)
