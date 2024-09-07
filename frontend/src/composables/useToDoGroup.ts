@@ -36,11 +36,13 @@ export function useToDoGroup() {
     }
   };
 
-  const fetchUserToDoGroups = async (userId: string): Promise<void> => {
+  const fetchUserToDoGroups = async (userId: number): Promise<void> => {
     loading.value = true;
     error.value = null;
     try {
-      const response = await todoGroupService.fetchUserToDoGroup(userId);
+      const response = await todoGroupService.fetchUserToDoGroupByUserId(
+        userId
+      );
       groups.value = response;
       notify({
         type: "success",
