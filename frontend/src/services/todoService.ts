@@ -1,10 +1,13 @@
 import { jsonApiClient } from "@/api";
-import type { IServerResponse } from "@/types/ServerResponse.type";
+import type { IServerResponseList } from "@/types/ServerResponseList.type";
+
 import { ToDoItem } from "@/types/ToDoItem.type";
 
 export default {
   async fetchToDoItems(): Promise<ToDoItem[]> {
-    const response = await jsonApiClient.get<IServerResponse>("/todo");
+    const response = await jsonApiClient.get<IServerResponseList<ToDoItem>>(
+      "/todo"
+    );
 
     return response.data.items;
   },
