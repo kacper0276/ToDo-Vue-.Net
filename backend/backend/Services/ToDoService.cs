@@ -7,7 +7,7 @@ namespace backend.Services
     public interface IToDoService
     {
         Task<int> CreateAsync(ToDoItem item);
-        Task<ToDoItem?> GetByIdAsync(int id);
+        Task<SimpleResponse<ToDoItem>> GetByIdAsync(int id);
         Task<PageResult<ToDoItem>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoItem item);
         Task<bool> DeleteAsync(int id);
@@ -30,9 +30,13 @@ namespace backend.Services
             return item.Id;
         }
 
-        public async Task<ToDoItem?> GetByIdAsync(int id)
+        public async Task<SimpleResponse<ToDoItem>> GetByIdAsync(int id)
         {
-            return await _context.ToDoItems.FindAsync(id);
+            var item = await _context.ToDoItems.FindAsync(id);
+            return new SimpleResponse<ToDoItem>
+            {
+                Item = item
+            };
         }
 
         public async Task<PageResult<ToDoItem>> GetAllAsync(int pageNumber, int pageSize)
