@@ -1,6 +1,3 @@
-export interface IServerResponse {
-  items: any[];
-  pageNumber: number;
-  pageSize: number;
-  totalCount: number;
+export interface IServerResponse<T> {
+  items: T[];
 }
