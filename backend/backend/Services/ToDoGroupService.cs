@@ -8,6 +8,8 @@ namespace backend.Services
     {
         Task<int> CreateAsync(ToDoGroup group);
         Task<ToDoGroup?> GetByIdAsync(int id);
+        Task<List<ToDoGroup>> GetByLoginAsync(string login);
+        Task<List<ToDoGroup>> GetByUserIdAsync(int userId); 
         Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoGroup group);
         Task<bool> DeleteAsync(int id);
@@ -26,17 +28,27 @@ namespace backend.Services
             return group.Id;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<ToDoGroup?> GetByIdAsync(int id)
         {
-            var item = await _context.ToDoGroups.FindAsync(id);
-            if (item == null)
-            {
-                return false;
-            }
+            return await _context.ToDoGroups.FindAsync(id);
+        }
 
-            _context.ToDoGroups.Remove(item);
-            await _context.SaveChangesAsync();
-            return true;
+        public async Task<List<ToDoGroup>> GetByLoginAsync(string login)
+        {
+            var results = await _context.ToDoGroups
+                .Where(tdg => tdg.User.Login == login)
+                .ToListAsync();
+
+            return results;
+        }
+
+        public async Task<List<ToDoGroup>> GetByUserIdAsync(int userId)
+        {
+            var results = await _context.ToDoGroups
+                .Where(tdg => tdg.User.Id == userId)
+                .ToListAsync();
+
+            return results;
         }
 
         public async Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize)
@@ -55,11 +67,7 @@ namespace backend.Services
                 PageSize = pageSize
             };
         }
-
-        public async Task<ToDoGroup?> GetByIdAsync(int id)
-        {
-            return await _context.ToDoGroups.FindAsync(id);
-        }
+        
         public async Task<bool> UpdateAsync(ToDoGroup group)
         {
             var existingGroup = await _context.ToDoGroups.FindAsync(group.Id);
@@ -71,6 +79,19 @@ namespace backend.Services
             existingGroup.Name = group.Name;
             existingGroup.Description = group.Description;
 
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var item = await _context.ToDoGroups.FindAsync(id);
+            if (item == null)
+            {
+                return false;
+            }
+
+            _context.ToDoGroups.Remove(item);
             await _context.SaveChangesAsync();
             return true;
         }

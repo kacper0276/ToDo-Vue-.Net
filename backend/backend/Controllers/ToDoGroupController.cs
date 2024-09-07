@@ -43,5 +43,20 @@ namespace backend.Controllers
             return StatusCode(201, new { Id = groupId });
         }
 
+        [HttpGet("by-login/{login}")]
+        public async Task<IActionResult> GetUserGroupsByLogin(string login)
+        {
+            var result = await _service.GetByLoginAsync(login);
+
+            return Ok(result);
+        }
+
+        [HttpGet("by-user-id/{userId}")]
+        public async Task<IActionResult> GetUserGroupsByUserId(int userId)
+        {
+            var result = await _service.GetByUserIdAsync(userId);
+
+            return Ok(result);
+        }
     }
 }
