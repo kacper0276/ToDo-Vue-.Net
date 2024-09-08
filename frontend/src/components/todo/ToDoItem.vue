@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { ToDoItem } from "@/types/ToDoItem.type";
+import type { ToDoItem } from "@/types";
 import { useToDo } from "@/composables/useToDo";
 
 const props = defineProps<{
