@@ -30,7 +30,7 @@ import { ref } from "vue";
 import { useAuth } from "@/composables/useAuth";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-import type { LoginCredentials } from "@/types/Auth.type";
+import type { LoginCredentials } from "@/types";
 
 const { login, loading } = useAuth();
 const { t } = useI18n();

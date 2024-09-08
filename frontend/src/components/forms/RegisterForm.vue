@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { useAuth } from "@/composables/useAuth";
-import type { RegisterCredentials } from "@/types/Auth.type";
+import type { RegisterCredentials } from "@/types";
 import { useNotification } from "@kyvg/vue3-notification";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
