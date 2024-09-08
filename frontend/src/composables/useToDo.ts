@@ -1,5 +1,5 @@
 import todoService from "@/services/todoService";
-import type { ToDoItem } from "@/types/ToDoItem.type";
+import type { ToDoItem } from "@/types";
 import { inject, ref, type Ref } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { useI18n } from "vue-i18n";

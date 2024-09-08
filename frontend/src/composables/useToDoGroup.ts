@@ -2,7 +2,7 @@ import { inject, ref, type Ref } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { useI18n } from "vue-i18n";
 import todoGroupService from "@/services/todoGroupService";
-import type { ToDoGroup } from "@/types/ToDoGroup.type";
+import type { ToDoGroup } from "@/types";
 
 export function useToDoGroup() {
   const groups: Ref<ToDoGroup[]> = ref([]);
