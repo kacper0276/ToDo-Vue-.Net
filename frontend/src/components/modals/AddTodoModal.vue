@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { ToDoItem } from "@/types/ToDoItem.type";
+import { ToDoGroup, type ToDoItem } from "@/types";
 import { useToDo } from "@/composables/useToDo";
-import { ToDoGroup } from "@/types/ToDoGroup.type";
 
 const { addToDoItem } = useToDo();
 

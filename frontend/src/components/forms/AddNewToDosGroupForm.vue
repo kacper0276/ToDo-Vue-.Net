@@ -30,7 +30,7 @@ import { ref } from "vue";
 import { useToDoGroup } from "@/composables/useToDoGroup";
 import { useAuthStore } from "@/stores/authStore";
 import { useI18n } from "vue-i18n";
-import { ToDoGroup } from "@/types/ToDoGroup.type";
+import { ToDoGroup } from "@/types";
 
 const { addToDoGroup, loading } = useToDoGroup();
 const { user } = useAuthStore();

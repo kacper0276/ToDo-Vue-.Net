@@ -1,6 +1,6 @@
-import type { ToDoGroup } from "./ToDoGroup.type";
-
 // TODO: Create LoginResponse (Token, RefreshToken, User)
+
+import type { ToDoGroup } from "../todo/ToDoGroup.type";
 
 export class User {
   constructor(

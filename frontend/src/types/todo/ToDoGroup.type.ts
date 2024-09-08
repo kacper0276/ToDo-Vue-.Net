@@ -1,4 +1,4 @@
-import type { User } from "./Auth.type";
+import type { User } from "../auth/Auth.type";
 import type { ToDoItem } from "./ToDoItem.type";
 
 export class ToDoGroup {

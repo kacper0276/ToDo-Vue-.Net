@@ -1,10 +1,6 @@
-import type {
-  User,
-  LoginCredentials,
-  RegisterCredentials,
-} from "@/types/Auth.type";
+import type { User, LoginCredentials, RegisterCredentials } from "@/types";
 import { jsonApiClient } from "@/api";
-import type { IServerResponseSimple } from "@/types/ServerResponseSimple.type";
+import type { IServerResponseSimple } from "@/types/server/ServerResponseSimple.type";
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {

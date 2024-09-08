@@ -1,9 +1,5 @@
 import authService from "@/services/authService";
-import type {
-  User,
-  LoginCredentials,
-  RegisterCredentials,
-} from "@/types/Auth.type";
+import type { User, LoginCredentials, RegisterCredentials } from "@/types";
 import { ref, inject, type Ref } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { useI18n } from "vue-i18n";
