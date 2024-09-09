@@ -48,9 +48,9 @@
             >{{ t("admin-panel") }}</RouterLink
           >
           <RouterLink
-            :to="`/user-profile/${user?.login}`"
+            :to="`/user-profile/${authStore.user?.login}`"
             class="nav-link"
-            v-if="user"
+            v-if="authStore.user"
             @click="closeMenu"
             >{{ t("user-profile") }}</RouterLink
           >
@@ -85,9 +85,9 @@
         >{{ t("admin-panel") }}</RouterLink
       >
       <RouterLink
-        :to="`/user-profile/${user?.login}`"
+        :to="`/user-profile/${authStore.user?.login}`"
         class="nav-link"
-        v-if="user"
+        v-if="authStore.user"
         >{{ t("user-profile") }}</RouterLink
       >
     </div>
@@ -115,8 +115,6 @@ import { useAuthStore } from "@/stores/authStore";
 const { t, locale } = useI18n();
 
 const authStore = useAuthStore();
-
-const { user } = authStore;
 
 const selectedLang = ref(locale.value);
 const isDarkTheme = ref(false);
