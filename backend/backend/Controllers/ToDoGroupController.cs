@@ -46,6 +46,7 @@ namespace backend.Controllers
         [HttpGet("by-login/{login}")]
         public async Task<IActionResult> GetUserGroupsByLogin(string login)
         {
+            Console.WriteLine(login);
             var result = await _service.GetByLoginAsync(login);
 
             return Ok(result);

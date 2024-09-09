@@ -136,6 +136,7 @@ namespace backend.Controllers
                 {
                     return Ok(new UserDto
                     {
+                        Id = user.Item.Id,
                         Email = user.Item.Email,
                         Login = user.Item.Login,
                         Role = user.Item.Role
