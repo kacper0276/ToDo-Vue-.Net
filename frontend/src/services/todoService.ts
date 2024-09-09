@@ -1,7 +1,7 @@
 import { jsonApiClient } from "@/api";
 import type { IServerResponseList } from "@/types/server/ServerResponseList.type";
 
-import { ToDoItem } from "@/types/ToDoItem.type";
+import { ToDoItem } from "@/types/todo/ToDoItem.type";
 
 export default {
   async fetchToDoItems(): Promise<ToDoItem[]> {
