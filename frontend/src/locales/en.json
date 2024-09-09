@@ -56,5 +56,7 @@
   "failed-to-add-group": "Failed to add group",
 
   "successfully-deleted-group": "Successfully deleted group",
-  "failed-to-delete-group": "Failed to delete group"
+  "failed-to-delete-group": "Failed to delete group",
+
+  "welcome": "Welcome"
 }
