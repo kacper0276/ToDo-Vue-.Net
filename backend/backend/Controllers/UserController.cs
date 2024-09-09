@@ -44,7 +44,7 @@ namespace backend.Controllers
         {
             Console.WriteLine(user.Login);
             var createdUser = await _userService.RegisterUser(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Item.Id }, createdUser.Item);
         }
 
         [HttpPost("login")]
@@ -101,7 +101,7 @@ namespace backend.Controllers
         {
             var users = await _userService.GetUsersByLoginPhraseAsync(phrase);
 
-            if (users == null || !users.Any())
+            if (users == null || !users.Items.Any())
             {
                 return NotFound("No users found matching the given phrase");
             }
@@ -136,9 +136,9 @@ namespace backend.Controllers
                 {
                     return Ok(new UserDto
                     {
-                        Email = user.Email,
-                        Login = user.Login,
-                        Role = user.Role
+                        Email = user.Item.Email,
+                        Login = user.Item.Login,
+                        Role = user.Item.Role
                     });
                 }
                 return NotFound("User not found");
