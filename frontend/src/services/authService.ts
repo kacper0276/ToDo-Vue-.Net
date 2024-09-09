@@ -1,11 +1,18 @@
-import type { User, LoginCredentials, RegisterCredentials } from "@/types";
+import type {
+  User,
+  LoginCredentials,
+  RegisterCredentials,
+  LoginResponse,
+} from "@/types";
 import { jsonApiClient } from "@/api";
 import type { IServerResponseSimple } from "@/types/server/ServerResponseSimple.type";
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {
-    const response = await jsonApiClient.post(`/user/login`, credentials);
-    const { user, token, refreshToken } = response.data;
+    const response = await jsonApiClient.post<
+      IServerResponseSimple<LoginResponse>
+    >(`/user/login`, credentials);
+    const { user, token, refreshToken } = response.data.item;
 
     sessionStorage.setItem("authToken", token);
     sessionStorage.setItem("refreshToken", refreshToken);

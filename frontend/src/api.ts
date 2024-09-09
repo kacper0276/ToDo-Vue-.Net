@@ -2,6 +2,7 @@ import axios, {
   type AxiosInstance,
   type InternalAxiosRequestConfig,
 } from "axios";
+import { type IServerResponseSimple, LoginResponse } from "./types";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -48,10 +49,12 @@ jsonApiClient.interceptors.response.use(
       const refreshToken = getRefreshToken();
       if (refreshToken) {
         try {
-          const response = await jsonApiClient.post(`/user/refresh-token`, {
+          const response = await jsonApiClient.post<
+            IServerResponseSimple<LoginResponse>
+          >(`/user/refresh-token`, {
             refreshToken,
           });
-          const { token, refreshToken: newRefreshToken } = response.data;
+          const { token, refreshToken: newRefreshToken } = response.data.item;
 
           sessionStorage.setItem("authToken", token);
           sessionStorage.setItem("refreshToken", newRefreshToken);

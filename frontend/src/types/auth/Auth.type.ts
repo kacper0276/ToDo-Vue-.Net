@@ -1,5 +1,3 @@
-// TODO: Create LoginResponse (Token, RefreshToken, User)
-
 import type { ToDoGroup } from "../todo/ToDoGroup.type";
 
 export class User {
@@ -22,5 +20,13 @@ export class RegisterCredentials {
     public login: string,
     public password: string,
     public role?: string
+  ) {}
+}
+
+export class LoginResponse {
+  constructor(
+    public user: User,
+    public token: string,
+    public refreshToken: string
   ) {}
 }
