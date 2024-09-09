@@ -16,8 +16,8 @@ namespace backend.Services
         Task<SimpleResponse<User>> GetUserByLoginAsync(string login);
         Task<ListResponse<User>> GetUsersByLoginPhraseAsync(string phrase);
         Task<SimpleResponse<User>> RegisterUser(User user);
-        Task<LoginResponse?> LoginAsync(string email, string password);
-        Task<LoginResponse?> RefreshTokenAsync(string refreshToken);
+        Task<SimpleResponse<LoginResponse?>> LoginAsync(string email, string password);
+        Task<SimpleResponse<LoginResponse?>> RefreshTokenAsync(string refreshToken);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
     }
@@ -73,7 +73,7 @@ namespace backend.Services
             return new SimpleResponse<User> { Item = user };
         }
 
-        public async Task<LoginResponse?> LoginAsync(string email, string password)
+        public async Task<SimpleResponse<LoginResponse?>> LoginAsync(string email, string password)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
             if (user == null)
@@ -90,15 +90,18 @@ namespace backend.Services
             var accessToken = _jwtService.GenerateToken(user);
             var refreshToken = _jwtService.GenerateRefreshToken(user);
 
-            return new LoginResponse
+            var response = new LoginResponse
             {
                 Token = accessToken,
                 RefreshToken = refreshToken,
                 User = new UserDto { Id = user.Id, Email = user.Email, Login = user.Login, Role = user.Role }
             };
+
+
+            return new SimpleResponse<LoginResponse?> { Item = response };
         }
 
-        public async Task<LoginResponse?> RefreshTokenAsync(string refreshToken)
+        public async Task<SimpleResponse<LoginResponse?>> RefreshTokenAsync(string refreshToken)
         {
             if (!_jwtService.ValidateRefreshToken(refreshToken))
             {
@@ -129,12 +132,14 @@ namespace backend.Services
             var newAccessToken = _jwtService.GenerateToken(user);
             var newRefreshToken = _jwtService.GenerateRefreshToken(user);
 
-            return new LoginResponse
+            var response = new LoginResponse
             {
                 Token = newAccessToken,
                 RefreshToken = newRefreshToken,
                 User = new UserDto { Id = user.Id, Email = user.Email, Login = user.Login, Role = user.Role }
             };
+
+            return new SimpleResponse<LoginResponse?> { Item = response };
         }
 
         public async Task UpdateUserAsync(User user)
