@@ -5,7 +5,7 @@ import type {
   LoginResponse,
 } from "@/types";
 import { jsonApiClient } from "@/api";
-import type { IServerResponseSimple } from "@/types/server/ServerResponseSimple.type";
+import type { IServerResponseSimple } from "@/types";
 
 export default {
   async login(credentials: LoginCredentials): Promise<{ user: User }> {

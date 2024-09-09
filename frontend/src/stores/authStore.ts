@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { User } from "@/types/Auth.type";
+import type { User } from "@/types";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { jsonApiClient } from "@/api";
