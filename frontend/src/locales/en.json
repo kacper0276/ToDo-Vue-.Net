@@ -58,5 +58,9 @@
   "successfully-deleted-group": "Successfully deleted group",
   "failed-to-delete-group": "Failed to delete group",
 
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "user-posts": "User posts",
+
+  "number-of-tasks": "Number of tasks",
+  "see-details": "See details"
 }
