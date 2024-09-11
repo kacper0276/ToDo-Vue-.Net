@@ -58,4 +58,19 @@ export default {
       throw error;
     }
   },
+
+  async fetchUserToDoGroupsByUsernameOnlyEnabled(
+    username: string
+  ): Promise<ToDoGroup[]> {
+    try {
+      const response = await jsonApiClient.get<IServerResponseList<ToDoGroup>>(
+        `/todo-group/by-login-only-enabled/${username}`
+      );
+
+      return response.data.items;
+    } catch (error) {
+      console.error("Error");
+      throw error;
+    }
+  },
 };
