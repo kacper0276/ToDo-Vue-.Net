@@ -10,6 +10,7 @@ namespace backend.Services
         Task<SimpleResponse<ToDoGroup>> GetByIdAsync(int id);
         Task<ListResponse<ToDoGroup>> GetByLoginAsync(string login);
         Task<ListResponse<ToDoGroup>> GetByUserIdAsync(int userId);
+        Task<ListResponse<ToDoGroup>> GetByLoginOnlyEnabledAsync(string login);
         Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoGroup group);
         Task<bool> DeleteAsync(int id);
@@ -53,6 +54,18 @@ namespace backend.Services
         {
             var results = await _context.ToDoGroups
                 .Where(tdg => tdg.User.Id == userId)
+                .ToListAsync();
+
+            return new ListResponse<ToDoGroup>
+            {
+                Items = results
+            };
+        }
+
+        public async Task<ListResponse<ToDoGroup>> GetByLoginOnlyEnabledAsync(string login)
+        {
+            var results = await _context.ToDoGroups
+                .Where(tdg => tdg.User.Login == login && tdg.Visible.HasValue && tdg.Visible.Value)
                 .ToListAsync();
 
             return new ListResponse<ToDoGroup>
