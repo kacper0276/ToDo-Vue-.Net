@@ -42,7 +42,6 @@ namespace backend.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User?>> CreateUser([FromBody] User user)
         {
-            Console.WriteLine(user.Login);
             var createdUser = await _userService.RegisterUser(user);
             return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Item.Id }, createdUser.Item);
         }
