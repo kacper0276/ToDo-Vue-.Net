@@ -3,7 +3,7 @@
     <h1>{{ t("welcome") }} {{ username }}!</h1>
     <h2>{{ t("user-posts") }}:</h2>
     <div class="todo-group-container">
-      <UserToDoGroup v-for="todoGroup in todoGroups" :todo-group="todoGroup" />
+      <UserToDoGroup v-for="todoGroup in groups" :todo-group="todoGroup" />
     </div>
   </div>
 </template>
@@ -12,23 +12,18 @@
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
-import { onMounted, ref } from "vue";
-import type { ToDoGroup } from "@/types";
-import todoGroupService from "@/services/todoGroupService";
+import { onMounted } from "vue";
+import { useToDoGroup } from "@/composables/useToDoGroup";
 
 const { t } = useI18n();
 
 const route = useRoute();
 
 const username = route.params.username as string;
-const todoGroups = ref<ToDoGroup[]>([]);
+const { fetchUserToDoGroupsByUsernameOnlyEnabled, groups } = useToDoGroup();
 
-onMounted(() => {
-  todoGroupService
-    .fetchUserToDoGroupsByUsername(username)
-    .then((res: ToDoGroup[]) => {
-      todoGroups.value = res;
-    });
+onMounted(async () => {
+  await fetchUserToDoGroupsByUsernameOnlyEnabled(username);
 });
 </script>
 

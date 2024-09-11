@@ -1,29 +1,24 @@
 <template>
   <div class="main-container">
     <div class="todo-group-container">
-      <UserToDoGroup v-for="todoGroup in todoGroups" :todo-group="todoGroup" />
+      <UserToDoGroup v-for="todoGroup in groups" :todo-group="todoGroup" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
-import todoGroupService from "@/services/todoGroupService";
+import { useToDoGroup } from "@/composables/useToDoGroup";
 import { useAuthStore } from "@/stores/authStore";
-import type { ToDoGroup } from "@/types";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 
 const authStore = useAuthStore();
 
 const username = authStore.user?.login as string;
-const todoGroups = ref<ToDoGroup[]>([]);
+const { fetchUserToDoGroupsByUsername, groups } = useToDoGroup();
 
-onMounted(() => {
-  todoGroupService
-    .fetchUserToDoGroupsByUsername(username)
-    .then((res: ToDoGroup[]) => {
-      todoGroups.value = res;
-    });
+onMounted(async () => {
+  await fetchUserToDoGroupsByUsername(username);
 });
 </script>
 
