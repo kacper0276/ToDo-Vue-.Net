@@ -34,6 +34,14 @@
             >{{ t("create-todos-group") }}</RouterLink
           >
           <RouterLink
+            to="/your-todo-groups"
+            class="nav-link"
+            @click="closeMenu"
+            v-if="authStore.user"
+          >
+            Twoje grupy
+          </RouterLink>
+          <RouterLink
             to="/user-panel"
             class="nav-link"
             @click="closeMenu"
@@ -75,6 +83,9 @@
         v-if="authStore.user"
         >{{ t("create-todos-group") }}</RouterLink
       >
+      <RouterLink to="/your-todo-groups" class="nav-link" v-if="authStore.user">
+        Twoje grupy
+      </RouterLink>
       <RouterLink to="/user-panel" class="nav-link" v-if="authStore.user">{{
         t("user-panel")
       }}</RouterLink>
