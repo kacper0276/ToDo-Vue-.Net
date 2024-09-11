@@ -1,18 +1,20 @@
 <template>
   <div class="todo-group">
     <p>{{ todoGroup?.name }}</p>
-    <p>Ilość zadań: {{ todoGroup.toDoItems.length }}</p>
+    <p>{{ t("number-of-tasks") }}: {{ todoGroup.toDoItems.length }}</p>
     <button class="details-button" @click="navigateToDetails">
-      Zobacz szczegóły
+      {{ t("see-details") }}
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ToDoGroup } from "@/types";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+const { t } = useI18n();
 
 const navigateToDetails = () => {
   if (props.todoGroup) {
