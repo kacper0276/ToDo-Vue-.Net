@@ -46,7 +46,6 @@ namespace backend.Controllers
         [HttpGet("by-login/{login}")]
         public async Task<IActionResult> GetUserGroupsByLogin(string login)
         {
-            Console.WriteLine(login);
             var result = await _service.GetByLoginAsync(login);
 
             return Ok(result);
@@ -56,6 +55,15 @@ namespace backend.Controllers
         public async Task<IActionResult> GetUserGroupsByUserId(int userId)
         {
             var result = await _service.GetByUserIdAsync(userId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("by-login-only-enabled/{login}")]
+        [Authorize(Policy = "AdminOrUser")]
+        public async Task<IActionResult> GetUserGroupsByLoginOnlyEnabled(string login)
+        {
+            var result = await _service.GetByLoginOnlyEnabledAsync(login);
 
             return Ok(result);
         }
