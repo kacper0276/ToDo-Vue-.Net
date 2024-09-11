@@ -58,5 +58,9 @@
   "successfully-deleted-group": "Pomyślnie usunięto grupę",
   "failed-to-delete-group": "Wystąpił błąd podczas usuwania grupy",
 
-  "welcome": "Witaj"
+  "welcome": "Witaj",
+  "user-posts": "Posty użytkownika",
+
+  "number-of-tasks": "Liczba zadań",
+  "see-details": "Zobacz szczegóły"
 }
