@@ -36,13 +36,68 @@ export function useToDoGroup() {
     }
   };
 
-  const fetchUserToDoGroups = async (userId: number): Promise<void> => {
+  const fetchUserToDoGroupsById = async (userId: number): Promise<void> => {
     loading.value = true;
     error.value = null;
     try {
       const response = await todoGroupService.fetchUserToDoGroupByUserId(
         userId
       );
+      groups.value = response;
+      notify({
+        type: "success",
+        title: "Success",
+        text: t("successfully-fetched-groups"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: "Error",
+        text: t("failed-to-fetch-groups", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const fetchUserToDoGroupsByUsername = async (
+    username: string
+  ): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await todoGroupService.fetchUserToDoGroupsByUsername(
+        username
+      );
+      groups.value = response;
+      notify({
+        type: "success",
+        title: "Success",
+        text: t("successfully-fetched-groups"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: "Error",
+        text: t("failed-to-fetch-groups", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const fetchUserToDoGroupsByUsernameOnlyEnabled = async (
+    username: string
+  ): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response =
+        await todoGroupService.fetchUserToDoGroupsByUsernameOnlyEnabled(
+          username
+        );
       groups.value = response;
       notify({
         type: "success",
@@ -113,7 +168,9 @@ export function useToDoGroup() {
     loading,
     error,
     fetchToDoGroups,
-    fetchUserToDoGroups,
+    fetchUserToDoGroupsById,
+    fetchUserToDoGroupsByUsername,
+    fetchUserToDoGroupsByUsernameOnlyEnabled,
     addToDoGroup,
     deleteToDoGroup,
   };
