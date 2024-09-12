@@ -1,5 +1,5 @@
 import { jsonApiClient } from "@/api";
-import type { IServerResponseList } from "@/types";
+import { type IServerResponseList } from "@/types";
 import type { IServerResponsePaginated } from "@/types";
 import { ToDoGroup } from "@/types";
 
