@@ -67,5 +67,13 @@ namespace backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("to-do-in-group/{groupId}")]
+        public async Task<IActionResult> GetToDoInGroupByGroupId(int groupId)
+        {
+            var result = await _service.GetToDoInGroupByGroupId(groupId);
+
+            return Ok(result);
+        }
     }
 }
