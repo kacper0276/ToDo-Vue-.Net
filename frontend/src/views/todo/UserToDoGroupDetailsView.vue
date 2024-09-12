@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <button class="add-task-button">+</button>
   </div>
 </template>
