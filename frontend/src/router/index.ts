@@ -11,6 +11,7 @@ import { adminGuard } from "@/guards/adminGuard";
 import AddNewToDosGroupView from "@/views/todo/AddNewToDosGroupView.vue";
 import UserProfileView from "@/views/user/UserProfileView.vue";
 import UserToDosGroupView from "@/views/todo/UserToDosGroupView.vue";
+import UserToDoGroupDetailsView from "@/views/todo/UserToDoGroupDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,11 @@ const router = createRouter({
       path: "/user-profile/:username",
       name: "user-profile",
       component: UserProfileView,
+    },
+    {
+      path: "/to-do-group/details/:groupId",
+      name: "todo-group-details",
+      component: UserToDoGroupDetailsView,
     },
     {
       path: "/your-todo-groups",

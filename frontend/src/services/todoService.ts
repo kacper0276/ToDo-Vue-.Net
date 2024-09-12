@@ -39,4 +39,17 @@ export default {
       throw error;
     }
   },
+
+  async fetchToDoInGroupByGroupId(groupId: number): Promise<ToDoItem[]> {
+    try {
+      const response = await jsonApiClient.get<IServerResponseList<ToDoItem>>(
+        `/todo-group/to-do-in-group/${groupId}`
+      );
+
+      return response.data.items;
+    } catch (error) {
+      console.error("Error");
+      throw error;
+    }
+  },
 };

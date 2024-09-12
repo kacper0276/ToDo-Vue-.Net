@@ -102,7 +102,29 @@ export function useToDo() {
     }
   };
 
-  const fetchToDoGroups = async () => {};
+  const fetchToDoInGroupByGroupId = async (groupId: number): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const response = await todoService.fetchToDoInGroupByGroupId(groupId);
+      todos.value = response;
+      notify({
+        type: "success",
+        title: "Success",
+        text: t("successfully-fetched-todo"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: "Error",
+        text: t("failed-to-fetch-todo", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
 
   return {
     todos,
@@ -113,6 +135,6 @@ export function useToDo() {
     addToDoItem,
     toggleToDoStatus,
     deleteToDoItem,
-    fetchToDoGroups,
+    fetchToDoInGroupByGroupId,
   };
 }

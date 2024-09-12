@@ -18,7 +18,10 @@ const { t } = useI18n();
 
 const navigateToDetails = () => {
   if (props.todoGroup) {
-    router.push(`/to-do-group/details/${props.todoGroup.id}`);
+    router.push({
+      name: "todo-group-details",
+      params: { groupId: props.todoGroup.id },
+    });
   }
 };
 
