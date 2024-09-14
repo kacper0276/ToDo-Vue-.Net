@@ -13,9 +13,7 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = userData;
     loggedIn.value = !!userData;
 
-    if (userData) {
-      router.push("/");
-    } else {
+    if (!userData) {
       router.push("/login");
     }
   };
