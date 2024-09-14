@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <h1>{{ t("welcome") }} {{ username }}!</h1>
+    <h1>{{ t("username") }}: {{ username }}</h1>
     <h2>{{ t("user-posts") }}:</h2>
     <div class="todo-group-container">
       <UserToDoGroup v-for="todoGroup in groups" :todo-group="todoGroup" />
