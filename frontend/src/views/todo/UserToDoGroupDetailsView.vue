@@ -8,6 +8,13 @@
       +
     </button>
 
+    <ToDoItemComponent
+      v-for="item in todos"
+      :key="item.id"
+      :to-do-item="item"
+      :on-refresh="fetchToDoGroups"
+    />
+
     <AddTodoModal
       :show="isModalVisible"
       :group-id="id"
@@ -25,6 +32,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { useRoute } from "vue-router";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import AddTodoModal from "@/components/modals/AddTodoModal.vue";
+import ToDoItemComponent from "@/components/todo/ToDoItem.vue";
 
 const { setTitle } = setDocumentTitle("user-to-do-group-details-page");
 setTitle("user-to-do-group-details-page");
@@ -65,11 +73,22 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .add-task-button {
   border-radius: 50%;
   width: 50px;
   height: 50px;
   background: #42b97c;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 15px;
+  margin-right: 15px;
 }
 </style>
