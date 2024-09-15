@@ -12,6 +12,7 @@ import AddNewToDosGroupView from "@/views/todo/AddNewToDosGroupView.vue";
 import UserProfileView from "@/views/user/UserProfileView.vue";
 import UserToDosGroupView from "@/views/todo/UserToDosGroupView.vue";
 import UserToDoGroupDetailsView from "@/views/todo/UserToDoGroupDetailsView.vue";
+import { unauthGuard } from "@/guards/unauthGuard";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,11 +26,13 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+      beforeEnter: [unauthGuard],
     },
     {
       path: "/register",
       name: "register",
       component: RegisterView,
+      beforeEnter: [unauthGuard],
     },
     {
       path: "/to-dos",
