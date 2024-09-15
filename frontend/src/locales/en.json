@@ -14,6 +14,10 @@
   "login-page": "Login page",
   "not-found-page": "Not found page",
   "to-dos-page": "To-dos page",
+  "create-todos-group-page": "Create todos group page",
+  "user-profile-page": "User profile page",
+  "user-to-dos-group-page": "User to dos group page",
+  "user-to-do-group-details-page": "User to do group details page",
 
   "add-new-task": "Add new task",
 
