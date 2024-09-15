@@ -3,7 +3,11 @@
     <h1>{{ t("username") }}: {{ username }}</h1>
     <h2>{{ t("user-posts") }}:</h2>
     <div class="todo-group-container">
-      <UserToDoGroup v-for="todoGroup in groups" :todo-group="todoGroup" />
+      <UserToDoGroup
+        v-for="todoGroup in groups"
+        :todo-group="todoGroup"
+        :show-change-visible-button="false"
+      />
     </div>
   </div>
 </template>

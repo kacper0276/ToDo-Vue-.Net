@@ -46,6 +46,8 @@
   "failed-to-delete-group": "Failed to delete group",
   "successfully-added-group": "Successfully added group",
   "failed-to-add-group": "Failed to add group",
+  "successfully-change-group-visibility": "Successfully change group visibility",
+  "failed-to-change-group-visibility": "Failed to change group visibility: {error}",
 
   "email": "Email",
   "password": "Password",

@@ -1,7 +1,11 @@
 <template>
   <div class="main-container">
     <div class="todo-group-container">
-      <UserToDoGroup v-for="todoGroup in groups" :todo-group="todoGroup" />
+      <UserToDoGroup
+        v-for="todoGroup in groups"
+        :todo-group="todoGroup"
+        :show-change-visible-button="true"
+      />
     </div>
   </div>
 </template>
