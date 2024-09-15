@@ -21,14 +21,14 @@ export function useToDo() {
       todos.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-todo"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-todo", { error: error.value }),
       });
     } finally {
@@ -43,14 +43,14 @@ export function useToDo() {
       await todoService.addNewToDo(item);
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-added-todo"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-add-todo", { error: error.value }),
       });
     } finally {
@@ -65,14 +65,14 @@ export function useToDo() {
       await todoService.toggleToDoStatus(id);
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-toggled-todo"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-toggle-todo", { error: error.value }),
       });
     } finally {
@@ -87,14 +87,14 @@ export function useToDo() {
       await todoService.deleteToDoItem(id);
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-deleted-todo"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-delete-todo", { error: error.value }),
       });
     } finally {
@@ -111,14 +111,14 @@ export function useToDo() {
       todos.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-todo"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-todo", { error: error.value }),
       });
     } finally {
