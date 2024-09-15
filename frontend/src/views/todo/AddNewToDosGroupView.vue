@@ -7,7 +7,11 @@
 
 <script setup lang="ts">
 import AddNewToDosGroupForm from "@/components/forms/AddNewToDosGroupForm.vue";
+import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useI18n } from "vue-i18n";
+
+const { setTitle } = setDocumentTitle("create-todos-group-page");
+setTitle("create-todos-group-page");
 
 const { t } = useI18n();
 </script>

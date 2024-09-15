@@ -8,9 +8,13 @@
 
 <script lang="ts" setup>
 import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
+import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useToDoGroup } from "@/composables/useToDoGroup";
 import { useAuthStore } from "@/stores/authStore";
 import { onMounted } from "vue";
+
+const { setTitle } = setDocumentTitle("user-to-dos-group-page");
+setTitle("user-to-dos-group-page");
 
 const authStore = useAuthStore();
 
