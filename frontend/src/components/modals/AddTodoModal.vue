@@ -7,6 +7,7 @@ const { addToDoItem } = useToDo();
 
 const props = defineProps<{
   show: boolean;
+  groupId: number;
   onClose: () => void;
   onRefresh: () => Promise<void>;
 }>();
@@ -15,8 +16,7 @@ const newToDo = ref<Omit<ToDoItem, "id">>({
   title: "",
   description: "",
   isComplete: false,
-  toDoGroupId: 0,
-  toDoGroup: new ToDoGroup(1),
+  toDoGroupId: props.groupId,
 });
 
 const addTodoItem = async () => {
@@ -26,8 +26,7 @@ const addTodoItem = async () => {
       title: "",
       description: "",
       isComplete: false,
-      toDoGroupId: 0,
-      toDoGroup: new ToDoGroup(1),
+      toDoGroupId: props.groupId,
     };
     await props.onRefresh();
     props.onClose();
