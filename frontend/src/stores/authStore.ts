@@ -18,15 +18,6 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  const logout = () => {
-    user.value = null;
-    loggedIn.value = false;
-
-    sessionStorage.removeItem("authToken");
-    sessionStorage.removeItem("refreshToken");
-    router.push("/login");
-  };
-
   const initializeAuth = async () => {
     const token = sessionStorage.getItem("authToken");
 
@@ -37,7 +28,8 @@ export const useAuthStore = defineStore("auth", () => {
         setUser(response.data);
       } catch (err) {
         console.error("Błąd inicjalizacji autoryzacji:", err);
-        logout();
+        sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("refreshToken");
       }
     }
   };
@@ -46,7 +38,6 @@ export const useAuthStore = defineStore("auth", () => {
     user,
     loggedIn,
     setUser,
-    logout,
     initializeAuth,
   };
 });

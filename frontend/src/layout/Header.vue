@@ -17,7 +17,7 @@
             t("home")
           }}</RouterLink>
           <template v-if="authStore.user">
-            <button class="nav-link logout-button" @click="logout">
+            <button class="nav-link logout-button" @click="logoutFunc">
               {{ t("logout") }}
             </button>
           </template>
@@ -70,7 +70,7 @@
     <div class="desktop-menu">
       <RouterLink to="/" class="nav-link">{{ t("home") }}</RouterLink>
       <template v-if="authStore.user">
-        <button class="nav-link logout-button" @click="logout">
+        <button class="nav-link logout-button" @click="logoutFunc">
           {{ t("logout") }}
         </button>
       </template>
@@ -122,10 +122,12 @@ import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted } from "vue";
 import { useAuthStore } from "@/stores/authStore";
+import { useAuth } from "@/composables/useAuth";
 
 const { t, locale } = useI18n();
 
 const authStore = useAuthStore();
+const { logout } = useAuth();
 
 const selectedLang = ref(locale.value);
 const isDarkTheme = ref(false);
@@ -148,8 +150,8 @@ const closeMenu = () => {
   isMenuOpen.value = false;
 };
 
-const logout = () => {
-  authStore.logout();
+const logoutFunc = () => {
+  logout();
   closeMenu();
 };
 

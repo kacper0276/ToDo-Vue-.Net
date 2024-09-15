@@ -4,6 +4,7 @@ import { ref, inject, type Ref } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "vue-router";
 
 export function useAuth() {
   const authStore = useAuthStore();
@@ -13,6 +14,7 @@ export function useAuth() {
   const { t } = useI18n();
 
   const loading = inject("isLoading", ref(false));
+  const router = useRouter();
 
   const login = async (credentials: LoginCredentials): Promise<void> => {
     loading.value = true;
@@ -26,6 +28,7 @@ export function useAuth() {
         title: t("success"),
         text: t("successfully-logged-in"),
       });
+      router.push("/");
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
@@ -49,6 +52,7 @@ export function useAuth() {
         title: t("success"),
         text: t("successfully-registered"),
       });
+      router.push("/login");
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
@@ -73,6 +77,7 @@ export function useAuth() {
         title: t("success"),
         text: t("successfully-logged-out"),
       });
+      router.push("/");
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
