@@ -46,6 +46,8 @@
   "failed-to-add-group": "Wystąpił błąd podczas dodawania grupy",
   "successfully-deleted-group": "Pomyślnie usunięto grupę",
   "failed-to-delete-group": "Wystąpił błąd podczas usuwania grupy",
+  "successfully-change-group-visibility": "Udało się zmienić widoczność grupy",
+  "failed-to-change-group-visibility": "Nie udało się zmienić widoczności grupy: {error}",
 
   "email": "Email",
   "password": "Hasło",
