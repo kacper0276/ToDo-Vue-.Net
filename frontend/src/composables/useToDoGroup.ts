@@ -21,14 +21,14 @@ export function useToDoGroup() {
       groups.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-groups"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-groups", { error: error.value }),
       });
     } finally {
@@ -46,14 +46,14 @@ export function useToDoGroup() {
       groups.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-groups"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-groups", { error: error.value }),
       });
     } finally {
@@ -73,14 +73,14 @@ export function useToDoGroup() {
       groups.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-groups"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-groups", { error: error.value }),
       });
     } finally {
@@ -101,14 +101,14 @@ export function useToDoGroup() {
       groups.value = response;
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-fetched-groups"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-fetch-groups", { error: error.value }),
       });
     } finally {
@@ -125,14 +125,14 @@ export function useToDoGroup() {
       await todoGroupService.addNewToDoGroup(groupData);
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-added-group"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-add-group", { error: error.value }),
       });
     } finally {
@@ -147,15 +147,38 @@ export function useToDoGroup() {
       await todoGroupService.deleteToDoGroup(id);
       notify({
         type: "success",
-        title: "Success",
+        title: t("success"),
         text: t("successfully-deleted-group"),
       });
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
       notify({
         type: "error",
-        title: "Error",
+        title: t("error"),
         text: t("failed-to-delete-group", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const changeGroupVisibility = async (groupId: number): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      await todoGroupService.changeGroupVisibility(groupId);
+      notify({
+        type: "success",
+        title: t("success"),
+        text: t("successfully-change-group-visibility"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: t("error"),
+        text: t("failed-to-change-group-visibility", { error: error.value }),
       });
     } finally {
       loading.value = false;
@@ -173,5 +196,6 @@ export function useToDoGroup() {
     fetchUserToDoGroupsByUsernameOnlyEnabled,
     addToDoGroup,
     deleteToDoGroup,
+    changeGroupVisibility,
   };
 }
