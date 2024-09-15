@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { setDocumentTitle } from "@/composables/setDocumentTitle";
+
+const { setTitle } = setDocumentTitle("admin-panel");
+setTitle("admin-panel");
+</script>
 
 <template>
   <div>

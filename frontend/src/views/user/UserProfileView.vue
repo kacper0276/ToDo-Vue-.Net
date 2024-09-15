@@ -14,6 +14,10 @@ import { useI18n } from "vue-i18n";
 import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
 import { onMounted } from "vue";
 import { useToDoGroup } from "@/composables/useToDoGroup";
+import { setDocumentTitle } from "@/composables/setDocumentTitle";
+
+const { setTitle } = setDocumentTitle("user-profile-page");
+setTitle("user-profile-page");
 
 const { t } = useI18n();
 
