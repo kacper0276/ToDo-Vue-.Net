@@ -73,4 +73,15 @@ export default {
       throw error;
     }
   },
+
+  async changeGroupVisibility(groupId: number): Promise<void> {
+    try {
+      await jsonApiClient.patch<void>(
+        `/todo-group/change-visibility/${groupId}`
+      );
+    } catch (error) {
+      console.log("Error");
+      throw error;
+    }
+  },
 };
