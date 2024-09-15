@@ -75,5 +75,13 @@ namespace backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpPatch("change-visibility/{groupId}")]
+        public async Task<IActionResult> UpdateGroupVisibility(int groupId)
+        {
+            var result = await _service.ChangeGroupVisibilityAsync(groupId);
+
+            return Ok(result);
+        }
     }
 }
