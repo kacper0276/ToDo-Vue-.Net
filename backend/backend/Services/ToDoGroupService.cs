@@ -15,6 +15,7 @@ namespace backend.Services
         Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize);
         Task<bool> UpdateAsync(ToDoGroup group);
         Task<bool> DeleteAsync(int id);
+        Task<bool> ChangeGroupVisibilityAsync(int groupId);
     }
 
     public class ToDoGroupService : IToDoGroupService
@@ -141,6 +142,19 @@ namespace backend.Services
             }
 
             _context.ToDoGroups.Remove(item);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> ChangeGroupVisibilityAsync(int groupId)
+        {
+            var item = await _context.ToDoGroups.FindAsync(groupId);
+            if (item == null )
+            {
+                return false;
+            }
+
+            item.Visible = !item.Visible;
             await _context.SaveChangesAsync();
             return true;
         }
