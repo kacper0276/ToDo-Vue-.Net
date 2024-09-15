@@ -14,6 +14,10 @@
   "login-page": "Strona logowania",
   "not-found-page": "Nie znaleziono strony",
   "to-dos-page": "Strona zadań do wykonania",
+  "create-todos-group-page": "Strona tworzenia nowych grup zadań",
+  "user-profile-page": "Strona profilu użytkownika",
+  "user-to-dos-group-page": "Strona grup zadań użytkownika",
+  "user-to-do-group-details-page": "Strona ze szczegółami dla grup zadań",
 
   "add-new-task": "Dodaj nowe zadanie",
 
