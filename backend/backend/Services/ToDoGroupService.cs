@@ -32,7 +32,10 @@ namespace backend.Services
 
         public async Task<SimpleResponse<ToDoGroup>> GetByIdAsync(int id)
         {
-            var group = await _context.ToDoGroups.FindAsync(id);
+            var group = await _context.ToDoGroups
+                .Include(g => g.ToDoItems)
+                .FirstOrDefaultAsync(g => g.Id == id);
+
             return new SimpleResponse<ToDoGroup>
             {
                 Item = group
@@ -42,6 +45,7 @@ namespace backend.Services
         public async Task<ListResponse<ToDoGroup>> GetByLoginAsync(string login)
         {
             var results = await _context.ToDoGroups
+                .Include(tdg => tdg.ToDoItems)
                 .Where(tdg => tdg.User.Login == login)
                 .ToListAsync();
 
@@ -66,6 +70,7 @@ namespace backend.Services
         public async Task<ListResponse<ToDoGroup>> GetByLoginOnlyEnabledAsync(string login)
         {
             var results = await _context.ToDoGroups
+                .Include(tdg => tdg.ToDoItems)
                 .Where(tdg => tdg.User.Login == login && tdg.Visible.HasValue && tdg.Visible.Value)
                 .ToListAsync();
 

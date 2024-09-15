@@ -1,6 +1,19 @@
 <template>
   <div class="main">
-    <button class="add-task-button" v-if="isButtonVisible">+</button>
+    <button
+      class="add-task-button"
+      v-if="isButtonVisible"
+      @click="showAddTodoModal"
+    >
+      +
+    </button>
+
+    <AddTodoModal
+      :show="isModalVisible"
+      :group-id="id"
+      :onClose="hideAddTodoModal"
+      :on-refresh="fetchToDoGroups"
+    />
   </div>
 </template>
 
@@ -11,6 +24,7 @@ import { useToDoGroup } from "@/composables/useToDoGroup";
 import { useAuthStore } from "@/stores/authStore";
 import { useRoute } from "vue-router";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
+import AddTodoModal from "@/components/modals/AddTodoModal.vue";
 
 const { setTitle } = setDocumentTitle("user-to-do-group-details-page");
 setTitle("user-to-do-group-details-page");
@@ -22,11 +36,25 @@ const id = Number(route.params.groupId);
 const { fetchToDoInGroupByGroupId, todos } = useToDo();
 const { groups, fetchUserToDoGroupsById } = useToDoGroup();
 
+const isModalVisible = ref(false);
+
+const showAddTodoModal = () => {
+  isModalVisible.value = true;
+};
+
+const hideAddTodoModal = () => {
+  isModalVisible.value = false;
+};
+
 const isButtonVisible = computed(() => {
   return groups.value.some(
     (group) => group.id === id && group.userId === user?.id
   );
 });
+
+const fetchToDoGroups = async () => {
+  await fetchToDoInGroupByGroupId(id);
+};
 
 onMounted(async () => {
   await fetchToDoInGroupByGroupId(id);
@@ -42,5 +70,6 @@ onMounted(async () => {
   width: 50px;
   height: 50px;
   background: #42b97c;
+  cursor: pointer;
 }
 </style>

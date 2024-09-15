@@ -41,6 +41,7 @@ const hideAddTodoModal = () => {
     />
     <AddTodoModal
       :show="isModalVisible"
+      :group-id="0"
       :onClose="hideAddTodoModal"
       :on-refresh="fetchToDoItems"
     />
