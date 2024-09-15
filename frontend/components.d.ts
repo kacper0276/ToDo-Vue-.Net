@@ -12,5 +12,6 @@ declare module "@vue/runtime-core" {
     ChatComponent: typeof import("./src/components/chat/ChatComponent.vue")["default"];
     UserToDoGroup: typeof import("./src/components/todo/UserToDoGroup.vue")["default"];
     AddNewToDosGroupForm: typeof import("./src/components/forms/AddNewToDosGroupForm.vue")["default"];
+    ChangeUserDataForm: typeof import("./src/components/forms/ChangeUserDataForm.vue")["default"];
   }
 }
