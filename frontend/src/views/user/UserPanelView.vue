@@ -2,7 +2,7 @@
 import UserPanelNavigation from "@/components/nav/UserPanelNavigation.vue";
 import ChangeUserDataForm from "@/components/forms/ChangeUserDataForm.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
-import { ref, type DefineComponent } from "vue";
+import { markRaw, ref, type DefineComponent } from "vue";
 import { useI18n } from "vue-i18n";
 import type { User } from "@/types";
 
@@ -27,7 +27,7 @@ const user: User = {
 
 const handlePanelChange = (panelName: string) => {
   // @ts-ignore
-  currentPanel.value = componentsMap[panelName] || null;
+  currentPanel.value = markRaw(componentsMap[panelName] || null);
 };
 </script>
 
