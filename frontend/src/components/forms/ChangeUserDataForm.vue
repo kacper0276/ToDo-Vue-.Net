@@ -16,6 +16,14 @@
         <option value="guest">Guest</option>
       </select>
     </div>
+    <div class="input-group">
+      <label for="password">Hasło</label>
+      <input type="password" id="password" v-model="form.password" />
+    </div>
+    <div class="input-group" v-if="form.password">
+      <label for="confirmPassword">Potwierdź hasło</label>
+      <input type="password" id="confirmPassword" v-model="confirmPassword" />
+    </div>
     <button type="submit" :disabled="loading">Zapisz zmiany</button>
   </form>
 </template>
@@ -41,15 +49,23 @@ const form = ref<
   password: "",
 });
 
+const confirmPassword = ref<string>("");
+
 watch(
   () => props.user,
   (newUser) => {
     form.value = { ...newUser };
+    confirmPassword.value = "";
   },
   { immediate: true }
 );
 
 const handleSubmit = async () => {
+  if (form.value.password && form.value.password !== confirmPassword.value) {
+    alert("Hasła nie pasują do siebie!");
+    return;
+  }
+
   try {
     await updateUser(form.value);
   } catch (error) {
