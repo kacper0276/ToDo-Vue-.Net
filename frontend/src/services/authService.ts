@@ -38,9 +38,23 @@ export default {
   async getCurrentUser(): Promise<User> {
     const token = sessionStorage.getItem("authToken");
     if (!token) throw new Error("No token found");
-    const response = await jsonApiClient.get(`/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await jsonApiClient.get(`/user/me`);
     return response.data.user;
+  },
+
+  async changeUserData(
+    updatedUserData: Partial<User> & { password?: string }
+  ): Promise<{ user: User }> {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) throw new Error("No token found");
+
+    const response = await jsonApiClient.put<IServerResponseSimple<User>>(
+      `/user`,
+      updatedUserData
+    );
+
+    const user = response.data.item;
+
+    return { user };
   },
 };

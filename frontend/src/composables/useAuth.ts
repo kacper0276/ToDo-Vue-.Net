@@ -107,6 +107,30 @@ export function useAuth() {
     }
   };
 
+  const updateUser = async (updatedUser: Partial<User>): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await authService.changeUserData(updatedUser);
+      authStore.setUser(response.user);
+      user.value = response.user;
+      notify({
+        type: "success",
+        title: t("success"),
+        text: t("user-updated-successfully"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: t("error"),
+        text: t("failed-to-update-user", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     user,
     error,
@@ -115,5 +139,6 @@ export function useAuth() {
     register,
     logout,
     getCurrentUser,
+    updateUser,
   };
 }
