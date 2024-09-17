@@ -12,8 +12,6 @@
 const emit = defineEmits(["panel-change"]);
 
 const changePanel = (panelName: string) => {
-  console.log(panelName);
-
   emit("panel-change", panelName);
 };
 </script>
