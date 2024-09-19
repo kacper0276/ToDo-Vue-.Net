@@ -18,7 +18,7 @@ namespace backend.Services
         Task<SimpleResponse<User>> RegisterUser(User user);
         Task<SimpleResponse<LoginResponse?>> LoginAsync(string email, string password);
         Task<SimpleResponse<LoginResponse?>> RefreshTokenAsync(string refreshToken);
-        Task UpdateUserAsync(User user);
+        Task<SimpleResponse<User>> UpdateUserAsync(int id, User user);
         Task DeleteUserAsync(int id);
     }
 
@@ -142,10 +142,41 @@ namespace backend.Services
             return new SimpleResponse<LoginResponse?> { Item = response };
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task<SimpleResponse<User>> UpdateUserAsync(int id, User updatedUserData)
         {
+            Console.WriteLine(updatedUserData);
+            
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return new SimpleResponse<User> { Item = null };
+            }
+
+            if (!string.IsNullOrEmpty(updatedUserData.Email))
+            {
+                user.Email = updatedUserData.Email;
+            }
+
+            if (!string.IsNullOrEmpty(updatedUserData.Login))
+            {
+                user.Login = updatedUserData.Login;
+            }
+
+            if (!string.IsNullOrEmpty(updatedUserData.Role))
+            {
+                user.Role = updatedUserData.Role;
+            }
+
+            if (!string.IsNullOrEmpty(updatedUserData.Password))
+            {
+                user.Password = _passwordHasher.HashPassword(user, updatedUserData.Password);
+            }
+
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+            return new SimpleResponse<User> { Item = user };
         }
 
         public async Task DeleteUserAsync(int id)
