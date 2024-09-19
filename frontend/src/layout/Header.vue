@@ -120,17 +120,20 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useAuthStore } from "@/stores/authStore";
 import { useAuth } from "@/composables/useAuth";
+import { useThemeStore } from "@/stores/themeStore";
 
 const { t, locale } = useI18n();
 
 const authStore = useAuthStore();
 const { logout } = useAuth();
 
+const themeStore = useThemeStore();
+const isDarkTheme = computed(() => themeStore.isDarkTheme);
+
 const selectedLang = ref(locale.value);
-const isDarkTheme = ref(false);
 const isMenuOpen = ref(false);
 
 const changeLanguage = () => {
@@ -138,8 +141,7 @@ const changeLanguage = () => {
 };
 
 const toggleTheme = () => {
-  document.documentElement.classList.toggle("dark-theme", isDarkTheme.value);
-  localStorage.setItem("theme", isDarkTheme.value ? "dark" : "light");
+  themeStore.toggleTheme();
 };
 
 const toggleMenu = () => {
@@ -154,17 +156,6 @@ const logoutFunc = () => {
   logout();
   closeMenu();
 };
-
-onMounted(() => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    isDarkTheme.value = true;
-    document.documentElement.classList.add("dark-theme");
-  } else {
-    isDarkTheme.value = false;
-    document.documentElement.classList.remove("dark-theme");
-  }
-});
 </script>
 
 <style scoped>
