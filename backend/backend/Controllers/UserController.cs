@@ -70,18 +70,6 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            await _userService.UpdateUserAsync(user);
-            return NoContent();
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
@@ -144,6 +132,28 @@ namespace backend.Controllers
                 return NotFound("User not found");
             }
             return BadRequest("Invalid user ID");
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
+        {
+            Console.WriteLine(id);
+
+            Console.WriteLine(updatedUser);
+
+            if (id != updatedUser.Id)
+            {
+                return BadRequest("ID in the URL does not match the ID in the request body.");
+            }
+
+            var response = await _userService.UpdateUserAsync(id, updatedUser);
+
+            if (response.Item == null)
+            {
+                return NotFound(response.Item);
+            }
+
+            return Ok(response.Item);
         }
     }
 }
