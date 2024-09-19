@@ -55,7 +55,7 @@ const goToRegister = () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #212121;
+  background-color: var(--form-background);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

@@ -23,7 +23,7 @@ const { t } = useI18n();
   align-items: center;
   justify-content: center;
   height: 100%;
-  background-color: #1c1c1c;
+  background-color: var(--main-background);
   color: white;
 }
 
