@@ -1,3 +1,37 @@
 :root {
+  --form-background-light: #f9f9f9;
+  --form-background-dark: #212121;
+  --input-background-light: #fff;
+  --input-background-dark: transparent;
+  --border-color-light: #ccc;
+  --border-color-dark: rgb(66, 184, 131);
+  --button-background-light: #66b3ff;
+  --button-background-dark: rgb(66, 184, 131);
+  --button-hover-light: #3399ff;
+  --button-hover-dark: rgb(36, 136, 83);
+  --text-color-light: #333;
+  --text-color-dark: white;
   --primary-green: #42b97c;
+  --main-background-light: #f0f0f0;
+  --main-background-dark: #1d1d1d;
+}
+
+.dark-theme {
+  --form-background: var(--form-background-dark);
+  --main-background: var(--main-background-dark);
+  --input-background: var(--input-background-dark);
+  --border-color: var(--border-color-dark);
+  --button-background: var(--button-background-dark);
+  --button-hover: var(--button-hover-dark);
+  --text-color: var(--text-color-dark);
+}
+
+.light-theme {
+  --form-background: var(--form-background-light);
+  --main-background: var(--main-background-light);
+  --input-background: var(--input-background-light);
+  --border-color: var(--border-color-light);
+  --button-background: var(--button-background-light);
+  --button-hover: var(--button-hover-light);
+  --text-color: var(--text-color-light);
 }
