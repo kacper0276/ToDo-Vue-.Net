@@ -35,10 +35,12 @@
   "success": "Success",
   "successfully-registered": "Successfully registered",
   "successfully-logged-out": "Successfully logged out",
+  "user-updated-successfully": "User updated successfully",
   "failed-to-login": "Failed to log in: {error}",
   "failed-to-register": "Failed to register: {error}",
   "failed-to-logout": "Failed to log out: {error}",
   "failed-to-fetch-user": "Failed to fetch user: {error}",
+  "failed-to-update-user": "Failed to update user: {error}",
 
   "successfully-fetched-groups": "Successfully fetched groups",
   "failed-to-fetch-groups": "Failed to fetch groups",
