@@ -49,7 +49,7 @@ export default {
     if (!token) throw new Error("No token found");
 
     const response = await jsonApiClient.put<IServerResponseSimple<User>>(
-      `/user`,
+      `/user/${updatedUserData.id}`,
       updatedUserData
     );
 

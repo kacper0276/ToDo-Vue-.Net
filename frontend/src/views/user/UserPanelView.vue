@@ -2,31 +2,21 @@
 import UserPanelNavigation from "@/components/nav/UserPanelNavigation.vue";
 import ChangeUserDataForm from "@/components/forms/ChangeUserDataForm.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
-import { markRaw, ref, type DefineComponent } from "vue";
+import { markRaw, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import type { User } from "@/types";
 
 const { setTitle } = setDocumentTitle("user-panel");
 setTitle("user-panel");
 
 const { t } = useI18n();
 
-const componentsMap = {
+const componentsMap: Record<string, any> = {
   ChangeUserDataForm: ChangeUserDataForm,
 };
 
-const currentPanel = ref<DefineComponent<{}, {}, any> | null>(null);
-
-const user: User = {
-  id: 1,
-  login: "John Doe",
-  email: "john.doe@example.com",
-  role: "user",
-  toDoGroups: [],
-};
+const currentPanel = ref<any>(null);
 
 const handlePanelChange = (panelName: string) => {
-  // @ts-ignore
   currentPanel.value = markRaw(componentsMap[panelName] || null);
 };
 </script>
@@ -35,7 +25,7 @@ const handlePanelChange = (panelName: string) => {
   <div class="main-container">
     <UserPanelNavigation @panel-change="handlePanelChange" />
     <div class="panel-view">
-      <component :is="currentPanel" :canChangeRole="false" :user="user" />
+      <component :is="currentPanel" />
     </div>
   </div>
 </template>
@@ -54,6 +44,7 @@ const handlePanelChange = (panelName: string) => {
   width: 70%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 </style>
