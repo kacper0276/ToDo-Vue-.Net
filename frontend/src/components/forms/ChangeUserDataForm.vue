@@ -8,14 +8,14 @@
       <label for="login">Login</label>
       <input type="text" id="login" v-model="form.login" required />
     </div>
-    <div class="input-group" v-if="canChangeRole">
+    <!-- <div class="input-group">
       <label for="role">Rola</label>
       <select id="role" v-model="form.role" required>
         <option value="admin">Admin</option>
         <option value="user">User</option>
         <option value="guest">Guest</option>
       </select>
-    </div>
+    </div> -->
     <div class="input-group">
       <label for="password">Hasło</label>
       <input type="password" id="password" v-model="form.password" />
@@ -29,36 +29,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineProps } from "vue";
+import { ref, watchEffect } from "vue";
 import type { User } from "@/types";
 import { useAuth } from "@/composables/useAuth";
-
-const props = defineProps<{
-  user: User;
-  canChangeRole: boolean;
-}>();
+import { useAuthStore } from "@/stores/authStore";
 
 const { updateUser, loading } = useAuth();
+const { user } = useAuthStore();
+
 const form = ref<
   Pick<User, "email" | "login" | "role" | "id"> & { password?: string }
 >({
-  id: props.user.id,
-  email: props.user.email,
-  login: props.user.login,
-  role: props.user.role,
+  id: user?.id!,
+  email: user?.email!,
+  login: user?.login!,
+  role: user?.role!,
   password: "",
 });
 
 const confirmPassword = ref<string>("");
 
-watch(
-  () => props.user,
-  (newUser) => {
-    form.value = { ...newUser };
+watchEffect(() => {
+  if (user) {
+    form.value = {
+      id: user.id,
+      email: user.email,
+      login: user.login,
+      role: user.role,
+      password: "",
+    };
     confirmPassword.value = "";
-  },
-  { immediate: true }
-);
+  }
+});
 
 const handleSubmit = async () => {
   if (form.value.password && form.value.password !== confirmPassword.value) {
@@ -79,11 +81,11 @@ const handleSubmit = async () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #212121;
+  background-color: var(--form-background);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: var(--text-color);
 }
 
 .input-group {
@@ -93,23 +95,23 @@ const handleSubmit = async () => {
 
 .input-group label {
   margin-bottom: 5px;
-  color: rgb(66, 184, 131);
+  color: var(--label-color);
 }
 
 .input-group input,
 .input-group select {
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid rgb(66, 184, 131);
-  background-color: transparent;
-  color: white;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-background);
+  color: var(--text-color);
 }
 
 button {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: rgb(66, 184, 131);
+  background-color: var(--button-background);
   color: white;
   cursor: pointer;
   font-weight: bold;
@@ -121,6 +123,6 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-  background-color: rgb(36, 136, 83);
+  background-color: var(--button-hover);
 }
 </style>
