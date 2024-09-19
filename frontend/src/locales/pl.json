@@ -35,10 +35,12 @@
   "success": "Sukces",
   "successfully-registered": "Pomyślnie zarejestrowano",
   "successfully-logged-out": "Pomyślnie wylogowano",
+  "user-updated-successfully": "Pomyślnie zmieniono dane użytkownika",
   "failed-to-login": "Nie udało się zalogować: {error}",
   "failed-to-register": "Nie udało się zarejestrować: {error}",
   "failed-to-logout": "Nie udało się wylogować: {error}",
   "failed-to-fetch-user": "Nie udało się pobrać użytkownika: {error}",
+  "failed-to-update-user": "Wystąpił błąd podczas zmiany danych użytkownika: {error}",
 
   "successfully-fetched-groups": "Pomyślnie pobrano grupy",
   "failed-to-fetch-groups": "Błąd podczas pobierania grup",
