@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="handleSubmit" class="user-form">
     <div class="input-group">
-      <label for="email">Email</label>
+      <label for="email">{{ t("email") }}</label>
       <input type="email" id="email" v-model="form.email" required />
     </div>
     <div class="input-group">
-      <label for="login">Login</label>
+      <label for="login">{{ t("username") }}</label>
       <input type="text" id="login" v-model="form.login" required />
     </div>
     <!-- <div class="input-group">
@@ -17,14 +17,16 @@
       </select>
     </div> -->
     <div class="input-group">
-      <label for="password">Hasło</label>
+      <label for="password">{{ t("password") }}</label>
       <input type="password" id="password" v-model="form.password" />
     </div>
     <div class="input-group" v-if="form.password">
-      <label for="confirmPassword">Potwierdź hasło</label>
+      <label for="confirmPassword">{{ t("repeat-password") }}</label>
       <input type="password" id="confirmPassword" v-model="confirmPassword" />
     </div>
-    <button type="submit" :disabled="loading">Zapisz zmiany</button>
+    <button type="submit" :disabled="loading">
+      {{ t("change-user-data") }}
+    </button>
   </form>
 </template>
 
@@ -33,9 +35,11 @@ import { ref, watchEffect } from "vue";
 import type { User } from "@/types";
 import { useAuth } from "@/composables/useAuth";
 import { useAuthStore } from "@/stores/authStore";
+import { useI18n } from "vue-i18n";
 
 const { updateUser, loading } = useAuth();
 const { user } = useAuthStore();
+const { t } = useI18n();
 
 const form = ref<
   Pick<User, "email" | "login" | "role" | "id"> & { password?: string }
@@ -64,7 +68,7 @@ watchEffect(() => {
 
 const handleSubmit = async () => {
   if (form.value.password && form.value.password !== confirmPassword.value) {
-    alert("Hasła nie pasują do siebie!");
+    alert(t("the-passwords-do-not-match"));
     return;
   }
 
