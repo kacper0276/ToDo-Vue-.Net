@@ -72,5 +72,8 @@
   "user-posts": "User posts",
 
   "number-of-tasks": "Number of tasks",
-  "see-details": "See details"
+  "see-details": "See details",
+
+  "change-user-data": "Change user data",
+  "the-passwords-do-not-match": "The passwords do not match"
 }
