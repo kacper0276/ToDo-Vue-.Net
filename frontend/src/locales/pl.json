@@ -72,5 +72,8 @@
   "user-posts": "Posty użytkownika",
 
   "number-of-tasks": "Liczba zadań",
-  "see-details": "Zobacz szczegóły"
+  "see-details": "Zobacz szczegóły",
+
+  "change-user-data": "Zmiana danych użytkownika",
+  "the-passwords-do-not-match": "Hasła nie są takie same"
 }
