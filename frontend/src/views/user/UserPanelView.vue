@@ -47,4 +47,15 @@ const handlePanelChange = (panelName: string) => {
   justify-content: center;
   flex-direction: column;
 }
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .panel-view {
+    width: 100%;
+    padding: 20px;
+  }
+}
 </style>
