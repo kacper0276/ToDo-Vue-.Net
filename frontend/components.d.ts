@@ -16,5 +16,6 @@ declare module "@vue/runtime-core" {
     UserPanelNavigation: typeof import("./src/components/nav/UserPanelNavigation.vue")["default"];
     ChangeAdminDataForm: typeof import("./src/components/forms/ChangeAdminDataForm.vue")["default"];
     AdminPanelNavigation: typeof import("./src/components/nav/AdminPanelNavigation.vue")["default"];
+    ChangeToDoGroupDataForm: typeof import("./src/components/forms/ChangeToDoGroupDataForm.vue")["default"];
   }
 }

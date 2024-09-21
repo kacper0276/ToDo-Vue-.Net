@@ -21,6 +21,12 @@
         >
           Change admin data
         </li>
+        <li
+          class="navigation-element"
+          @click="changePanel('ChangeToDoGroupDataForm')"
+        >
+          Change todo
+        </li>
       </ul>
     </nav>
   </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ChangeAdminDataForm from "@/components/forms/ChangeAdminDataForm.vue";
+import ChangeToDoGroupDataForm from "@/components/forms/ChangeToDoGroupDataForm.vue";
 import AdminPanelNavigation from "@/components/nav/AdminPanelNavigation.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { markRaw, ref } from "vue";
@@ -9,6 +10,7 @@ setTitle("admin-panel");
 
 const componentsMap: Record<string, any> = {
   ChangeAdminDataForm: ChangeAdminDataForm,
+  ChangeToDoGroupDataForm: ChangeToDoGroupDataForm,
 };
 
 const currentPanel = ref<any>(null);
