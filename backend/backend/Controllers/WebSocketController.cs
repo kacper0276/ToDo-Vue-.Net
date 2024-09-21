@@ -1,6 +1,5 @@
 ﻿using backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace backend.Controllers
 {
