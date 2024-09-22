@@ -10,7 +10,7 @@ const { t } = useI18n();
 
 <template>
   <main class="main-container">
-    <h1>Witaj na stronie głównej</h1>
+    <h1>{{ t("welcome-to-the-home-page") }}</h1>
   </main>
 </template>
 
