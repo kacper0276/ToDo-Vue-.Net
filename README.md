@@ -1,3 +1,1 @@
 ToDoApp - Vue & .NET
-
-ToDo:
