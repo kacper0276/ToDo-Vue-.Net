@@ -15,11 +15,8 @@
         &times;
       </button>
       <ul class="navigation-list">
-        <li
-          class="navigation-element"
-          @click="changePanel('ChangeAdminDataForm')"
-        >
-          Change admin data
+        <li class="navigation-element" @click="changePanel('DisplayUsersList')">
+          Display Users List
         </li>
         <li
           class="navigation-element"
