@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChangeAdminDataForm from "@/components/forms/ChangeAdminDataForm.vue";
+import DisplayUsersList from "@/components/admin/DisplayUsersList.vue";
 import ChangeToDoGroupDataForm from "@/components/forms/ChangeToDoGroupDataForm.vue";
 import AdminPanelNavigation from "@/components/nav/AdminPanelNavigation.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
@@ -9,7 +9,7 @@ const { setTitle } = setDocumentTitle("admin-panel");
 setTitle("admin-panel");
 
 const componentsMap: Record<string, any> = {
-  ChangeAdminDataForm: ChangeAdminDataForm,
+  DisplayUsersList: DisplayUsersList,
   ChangeToDoGroupDataForm: ChangeToDoGroupDataForm,
 };
 
