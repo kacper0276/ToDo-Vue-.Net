@@ -4,7 +4,7 @@ import type { IServerResponseList, IServerResponseSimple, User } from "@/types";
 export default {
   async getAllUsers(): Promise<User[]> {
     const response = await jsonApiClient.get<IServerResponseList<User>>(
-      "/user/all-users"
+      "/user/"
     );
 
     return response.data.items;
