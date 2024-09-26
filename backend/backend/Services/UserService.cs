@@ -1,4 +1,5 @@
-﻿using backend.Entities;
+﻿using AutoMapper;
+using backend.Entities;
 using backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace backend.Services
 {
     public interface IUserService
     {
-        Task<ListResponse<User>> GetAllUsersAsync();
+        Task<ListResponse<UserDto>> GetAllUsersAsync();
         Task<SimpleResponse<User>> GetUserByIdAsync(int id);
         Task<SimpleResponse<User>> GetUserByLoginAsync(string login);
         Task<ListResponse<User>> GetUsersByLoginPhraseAsync(string phrase);
@@ -28,19 +29,26 @@ namespace backend.Services
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IJwtService _jwtService;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext context, IPasswordHasher<User> passwordHasher, IJwtService jwtService, IConfiguration configuration)
+        public UserService(ApplicationDbContext context, IPasswordHasher<User> passwordHasher, IJwtService jwtService, IConfiguration configuration, IMapper mapper)
         {
             _context = context;
             _passwordHasher = passwordHasher;
             _jwtService = jwtService;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
-        public async Task<ListResponse<User>> GetAllUsersAsync()
+        public async Task<ListResponse<UserDto>> GetAllUsersAsync()
         {
-            var users = await _context.Users.ToListAsync();
-            return new ListResponse<User> { Items = users };
+            var users = await _context.Users
+            .Include(u => u.ToDoGroups)
+            .ToListAsync();
+
+            var userDtos = _mapper.Map<List<UserDto>>(users);
+
+            return new ListResponse<UserDto> { Items = userDtos };
         }
 
         public async Task<SimpleResponse<User>> GetUserByIdAsync(int id)
