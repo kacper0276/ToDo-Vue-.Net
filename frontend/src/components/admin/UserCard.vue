@@ -25,6 +25,7 @@ defineProps<{ user: User }>();
   margin-bottom: 20px;
   border: 1px solid var(--border-color);
   transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
 }
 
 .user-info {
