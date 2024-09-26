@@ -20,7 +20,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);

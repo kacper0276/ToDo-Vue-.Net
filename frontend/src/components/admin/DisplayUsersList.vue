@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user-container">
     <UserCard v-for="user in users" :key="user.id" :user="user"></UserCard>
   </div>
 </template>
@@ -16,4 +16,13 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.user-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+</style>
