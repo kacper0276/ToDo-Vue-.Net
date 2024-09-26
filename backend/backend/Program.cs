@@ -1,6 +1,7 @@
 using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebSockets;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +62,9 @@ namespace backend
             builder.Services.AddSingleton<WebSocketService>();
 
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            // Mapper
+            builder.Services.AddAutoMapper(typeof(Program));
 
             // Configure authentication
             builder.Services.AddAuthentication(options =>
