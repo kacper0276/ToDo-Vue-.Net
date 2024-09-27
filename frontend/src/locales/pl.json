@@ -83,5 +83,8 @@
   "see-details": "Zobacz szczegóły",
 
   "change-user-data": "Zmiana danych użytkownika",
-  "the-passwords-do-not-match": "Hasła nie są takie same"
+  "the-passwords-do-not-match": "Hasła nie są takie same",
+
+  "display-users-list": "Wyświetl listę użytkowników",
+  "change-todo-groups": "Zmień dane grup zadań"
 }
