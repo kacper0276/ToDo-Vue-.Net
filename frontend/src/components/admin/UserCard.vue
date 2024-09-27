@@ -1,16 +1,27 @@
 <template>
-  <div class="user-card">
+  <div class="user-card" @click="setUser(user)">
     <div class="user-info">
       <h2 class="user-login">{{ user.login }}</h2>
       <p class="user-email">{{ user.email }}</p>
-      <p class="user-role">Role: {{ user.role }}</p>
-      <p class="user-groups">Number of groups: {{ user.toDoGroups.length }}</p>
+      <p class="user-role">{{ t("role") }}: {{ user.role }}</p>
+      <p class="user-groups">
+        {{ t("number-of-groups") }}: {{ user.toDoGroups.length }}
+      </p>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { User } from "@/types";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+
+const emit = defineEmits(["setUser"]);
+
+const setUser = (selectedUser: User | null) => {
+  emit("setUser", selectedUser);
+};
 
 defineProps<{ user: User }>();
 </script>
