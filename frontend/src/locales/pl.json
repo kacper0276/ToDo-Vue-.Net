@@ -63,6 +63,11 @@
   "username": "Nazwa użytkownika",
   "repeat-password": "Powtórz hasło",
   "passwords-must-be-the-same": "Hasła muszą być takie same",
+  "role": "Rola",
+  "admin": "Admin",
+  "user": "Użytkownik",
+  "guest": "Gość",
+  "number-of-groups": "Liczba grup",
 
   "create-new-todos-group": "Utwórz nową grupę zadań",
   "user-not-authenticated": "Użytkownik nie zautoryzowany",

@@ -8,14 +8,6 @@
       <label for="login">{{ t("username") }}</label>
       <input type="text" id="login" v-model="form.login" required />
     </div>
-    <!-- <div class="input-group">
-      <label for="role">Rola</label>
-      <select id="role" v-model="form.role" required>
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
-        <option value="guest">Guest</option>
-      </select>
-    </div> -->
     <div class="input-group">
       <label for="password">{{ t("password") }}</label>
       <input type="password" id="password" v-model="form.password" />

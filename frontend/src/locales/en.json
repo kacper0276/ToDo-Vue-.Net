@@ -63,6 +63,11 @@
   "username": "Username",
   "repeat-password": "Repeat password",
   "passwords-must-be-the-same": "Passwords must be the same",
+  "role": "Role",
+  "admin": "Admin",
+  "user": "User",
+  "guest": "Guest",
+  "number-of-groups": "Number of groups",
 
   "create-new-todos-group": "Create new to-dos group",
   "user-not-authenticated": "User not authenticated",
