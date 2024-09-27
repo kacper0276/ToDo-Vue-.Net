@@ -83,5 +83,8 @@
   "see-details": "See details",
 
   "change-user-data": "Change user data",
-  "the-passwords-do-not-match": "The passwords do not match"
+  "the-passwords-do-not-match": "The passwords do not match",
+
+  "display-users-list": "Display users list",
+  "change-todo-groups": "Change todo groups"
 }
