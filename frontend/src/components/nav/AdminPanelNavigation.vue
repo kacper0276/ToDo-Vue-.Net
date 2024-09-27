@@ -16,13 +16,13 @@
       </button>
       <ul class="navigation-list">
         <li class="navigation-element" @click="changePanel('DisplayUsersList')">
-          Display Users List
+          {{ t("display-users-list") }}
         </li>
         <li
           class="navigation-element"
           @click="changePanel('ChangeToDoGroupDataForm')"
         >
-          Change todo
+          {{ t("change-todo-groups") }}
         </li>
       </ul>
     </nav>
