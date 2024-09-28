@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import AddNewToDosGroupForm from "@/components/forms/AddNewToDosGroupForm.vue";
+import AddNewToDosGroupForm from "@/components/todoGroup/AddNewToDosGroupForm.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useI18n } from "vue-i18n";
 

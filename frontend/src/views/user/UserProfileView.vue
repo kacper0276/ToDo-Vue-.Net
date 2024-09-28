@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
+import UserToDoGroup from "@/components/todoGroup/UserToDoGroup.vue";
 import { onMounted } from "vue";
 import { useToDoGroup } from "@/composables/useToDoGroup";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
