@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DisplayUsersList from "@/components/admin/DisplayUsersList.vue";
-import ChangeToDoGroupDataForm from "@/components/forms/ChangeToDoGroupDataForm.vue";
+import ChangeToDoGroupDataForm from "@/components/todoGroup/ChangeToDoGroupDataForm.vue";
 import AdminPanelNavigation from "@/components/nav/AdminPanelNavigation.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { markRaw, ref } from "vue";

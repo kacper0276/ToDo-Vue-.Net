@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UserPanelNavigation from "@/components/nav/UserPanelNavigation.vue";
-import ChangeUserDataForm from "@/components/forms/ChangeUserDataForm.vue";
+import ChangeUserDataForm from "@/components/user/ChangeUserDataForm.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { markRaw, ref } from "vue";
 import { useI18n } from "vue-i18n";

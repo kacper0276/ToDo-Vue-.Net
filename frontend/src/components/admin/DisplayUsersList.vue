@@ -19,7 +19,7 @@ import { useUser } from "@/composables/useUser";
 import { onMounted, ref } from "vue";
 import UserCard from "@/components/admin/UserCard.vue";
 import type { User } from "@/types";
-import ChangeAdminDataForm from "../forms/ChangeAdminDataForm.vue";
+import ChangeAdminDataForm from "./ChangeAdminDataForm.vue";
 
 const { users, getAllUsers } = useUser();
 const actualUser = ref<User | null>(null);

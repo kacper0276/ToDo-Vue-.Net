@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import UserToDoGroup from "@/components/todo/UserToDoGroup.vue";
+import UserToDoGroup from "@/components/todoGroup/UserToDoGroup.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { useToDoGroup } from "@/composables/useToDoGroup";
 import { useAuthStore } from "@/stores/authStore";
