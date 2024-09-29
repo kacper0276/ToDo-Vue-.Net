@@ -81,6 +81,15 @@
 
   "number-of-tasks": "Number of tasks",
   "see-details": "See details",
+  "visibility": "Visibility",
+
+  "ready": "Ready",
+  "not-ready": "Not ready",
+  "collapse": "Collapse",
+  "expand": "Expand",
+  "close": "Close",
+  "task-title": "Task Title",
+  "description-of-the-task": "Description of the task",
 
   "change-user-data": "Change user data",
   "the-passwords-do-not-match": "The passwords do not match",
