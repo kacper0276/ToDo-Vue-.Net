@@ -40,9 +40,6 @@ const navigateToDetails = () => {
 };
 
 const changeVisibilityGroup = async () => {
-  console.log(props.todoGroup.name);
-  console.log(props.todoGroup.visible);
-
   await changeGroupVisibility(props.todoGroup.id);
 };
 
