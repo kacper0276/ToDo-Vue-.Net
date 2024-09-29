@@ -7,7 +7,7 @@
     </button>
 
     <div class="visibility-container" v-if="props.showChangeVisibleButton">
-      <p>Widoczność:</p>
+      <p>{{ t("visibility") }}:</p>
       <label class="theme-switch">
         <input
           type="checkbox"
@@ -40,9 +40,6 @@ const navigateToDetails = () => {
 };
 
 const changeVisibilityGroup = async () => {
-  console.log(props.todoGroup.name);
-  console.log(props.todoGroup.visible);
-
   await changeGroupVisibility(props.todoGroup.id);
 };
 
