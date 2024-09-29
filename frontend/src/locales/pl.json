@@ -81,6 +81,15 @@
 
   "number-of-tasks": "Liczba zadań",
   "see-details": "Zobacz szczegóły",
+  "visibility": "Widoczność",
+
+  "ready": "Gotowe",
+  "not-ready": "Nie gotowe",
+  "collapse": "Zwiń",
+  "expand": "Rozwiń",
+  "close": "Zamknij",
+  "task-title": "Tytuł zadania",
+  "description-of-the-task": "Opis zadania",
 
   "change-user-data": "Zmiana danych użytkownika",
   "the-passwords-do-not-match": "Hasła nie są takie same",
