@@ -1,39 +1,3 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import type { ToDoItem } from "@/types";
-import { useToDo } from "@/composables/useToDo";
-
-const props = defineProps<{
-  toDoItem: ToDoItem;
-  onRefresh: () => Promise<void>;
-}>();
-
-const isExpanded = ref(false);
-const { toggleToDoStatus, deleteToDoItem } = useToDo();
-
-const toggleExpand = () => {
-  isExpanded.value = !isExpanded.value;
-};
-
-const toggleComplete = async () => {
-  try {
-    await toggleToDoStatus(props.toDoItem.id);
-    await props.onRefresh();
-  } catch (err) {
-    console.error("Failed to toggle task status", err);
-  }
-};
-
-const removeToDoItem = async () => {
-  try {
-    await deleteToDoItem(props.toDoItem.id);
-    await props.onRefresh();
-  } catch (err) {
-    console.error("Failed to delete task", err);
-  }
-};
-</script>
-
 <template>
   <div class="todo-container">
     <div class="header">
@@ -68,10 +32,12 @@ const removeToDoItem = async () => {
         @change="toggleComplete"
         class="status-checkbox"
       />
-      <label>{{ props.toDoItem.isComplete ? "Gotowe" : "Niegotowe" }}</label>
+      <label>{{
+        props.toDoItem.isComplete ? t("ready") : t("not-ready")
+      }}</label>
     </div>
     <button @click="toggleExpand" class="toggle-button">
-      {{ isExpanded ? "Zwiń" : "Rozwiń" }}
+      {{ isExpanded ? t("collapse") : t("expand") }}
     </button>
     <transition name="expand-fade">
       <div v-if="isExpanded" class="description">
@@ -80,6 +46,44 @@ const removeToDoItem = async () => {
     </transition>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import type { ToDoItem } from "@/types";
+import { useToDo } from "@/composables/useToDo";
+import { useI18n } from "vue-i18n";
+
+const props = defineProps<{
+  toDoItem: ToDoItem;
+  onRefresh: () => Promise<void>;
+}>();
+
+const isExpanded = ref(false);
+const { toggleToDoStatus, deleteToDoItem } = useToDo();
+const { t } = useI18n();
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value;
+};
+
+const toggleComplete = async () => {
+  try {
+    await toggleToDoStatus(props.toDoItem.id);
+    await props.onRefresh();
+  } catch (err) {
+    console.error("Failed to toggle task status", err);
+  }
+};
+
+const removeToDoItem = async () => {
+  try {
+    await deleteToDoItem(props.toDoItem.id);
+    await props.onRefresh();
+  } catch (err) {
+    console.error("Failed to delete task", err);
+  }
+};
+</script>
 
 <style scoped>
 .todo-container {
