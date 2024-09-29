@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { ToDoGroup, type ToDoItem } from "@/types";
+import { type ToDoItem } from "@/types";
 import { useToDo } from "@/composables/useToDo";
+import { useI18n } from "vue-i18n";
 
 const { addToDoItem } = useToDo();
+const { t } = useI18n();
 
 const props = defineProps<{
   show: boolean;
@@ -41,20 +43,22 @@ const closeModal = () => {
 <template>
   <div v-if="show" class="modal-overlay">
     <div class="modal-content">
-      <h3>Dodaj nowe zadanie</h3>
+      <h3>{{ t("add-new-task") }}</h3>
       <input
         v-model="newToDo.title"
         type="text"
-        placeholder="Tytuł zadania"
+        :placeholder="t('task-title')"
         class="todo-input"
       />
       <textarea
         v-model="newToDo.description"
-        placeholder="Opis zadania"
+        :placeholder="t('description-of-the-task')"
         class="todo-textarea"
       ></textarea>
-      <button @click="addTodoItem" class="add-button">Dodaj zadanie</button>
-      <button @click="closeModal" class="close-button">Zamknij</button>
+      <button @click="addTodoItem" class="add-button">
+        {{ t("add-new-task") }}
+      </button>
+      <button @click="closeModal" class="close-button">{{ t("close") }}</button>
     </div>
   </div>
 </template>
@@ -79,6 +83,7 @@ const closeModal = () => {
   width: 400px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
+  color: black;
 }
 
 .todo-input,
