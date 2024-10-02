@@ -19,5 +19,7 @@ declare module "@vue/runtime-core" {
     ChangeToDoGroupDataForm: typeof import("./src/components/todoGroup/ChangeToDoGroupDataForm.vue")["default"];
     UserCard: typeof import("./src/components/admin/UserCard.vue")["default"];
     DisplayUsersList: typeof import("./src/components/admin/DisplayUsersList.vue")["default"];
+    DisplayAllGroups: typeof import("./src/components/admin/DisplayAllGroups.vue")["default"];
+    DisplayUserGroups: typeof import("./src/components/user/DisplayUserGroups.vue")["default"];
   }
 }

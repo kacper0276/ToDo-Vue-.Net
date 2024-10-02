@@ -21,6 +21,10 @@
         >
           {{ t("change-user-data") }}
         </li>
+
+        <li class="navigation-list" @click="changePanel('DisplayUserGroups')">
+          {{ t("change-user-group") }}
+        </li>
       </ul>
     </nav>
   </div>
