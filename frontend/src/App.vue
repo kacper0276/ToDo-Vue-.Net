@@ -5,11 +5,12 @@ import Layout from "./layout/Layout.vue";
 import Footer from "./layout/Footer.vue";
 import LoadingSpinner from "@/components/ui/LoadingSpinner.vue";
 import ChatComponent from "@/components/chat/ChatComponent.vue";
-import { onMounted, provide, ref } from "vue";
+import { onMounted, onUnmounted, provide, ref } from "vue";
 import { useAuthStore } from "./stores/authStore";
 
 const isLoading = ref(false);
 const isChatVisible = ref(false);
+const isOffline = ref(!navigator.onLine);
 const authStore = useAuthStore();
 
 const showChat = () => {
@@ -33,8 +34,19 @@ const initializeAuth = async () => {
   }
 };
 
+const handleConnectionChange = () => {
+  isOffline.value = !navigator.onLine;
+};
+
 onMounted(() => {
   initializeAuth();
+  window.addEventListener("online", handleConnectionChange);
+  window.addEventListener("offline", handleConnectionChange);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("online", handleConnectionChange);
+  window.removeEventListener("offline", handleConnectionChange);
 });
 </script>
 
@@ -56,6 +68,12 @@ onMounted(() => {
   <button @click="showChat" class="chat-toggle-button">💬</button>
 
   <ChatComponent :show="isChatVisible" :onClose="closeChat" />
+
+  <div v-if="isOffline" class="offline-overlay">
+    <p>
+      Brak połączenia z siecią. Proszę sprawdzić swoje połączenie internetowe.
+    </p>
+  </div>
 </template>
 
 <style scoped>
@@ -79,5 +97,20 @@ onMounted(() => {
 
 .chat-toggle-button:hover {
   background-color: #36a56d;
+}
+
+.offline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 1000;
 }
 </style>
