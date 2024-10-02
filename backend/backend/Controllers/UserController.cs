@@ -137,10 +137,6 @@ namespace backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
         {
-            Console.WriteLine(id);
-
-            Console.WriteLine(updatedUser);
-
             if (id != updatedUser.Id)
             {
                 return BadRequest("ID in the URL does not match the ID in the request body.");
