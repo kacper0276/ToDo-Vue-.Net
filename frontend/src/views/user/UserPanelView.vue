@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UserPanelNavigation from "@/components/nav/UserPanelNavigation.vue";
 import ChangeUserDataForm from "@/components/user/ChangeUserDataForm.vue";
+import DisplayUserGroups from "@/components/user/DisplayUserGroups.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { markRaw, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -12,6 +13,7 @@ const { t } = useI18n();
 
 const componentsMap: Record<string, any> = {
   ChangeUserDataForm: ChangeUserDataForm,
+  DisplayUserGroups: DisplayUserGroups,
 };
 
 const currentPanel = ref<any>(null);
