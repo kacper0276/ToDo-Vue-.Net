@@ -18,10 +18,7 @@
         <li class="navigation-element" @click="changePanel('DisplayUsersList')">
           {{ t("display-users-list") }}
         </li>
-        <li
-          class="navigation-element"
-          @click="changePanel('ChangeToDoGroupDataForm')"
-        >
+        <li class="navigation-element" @click="changePanel('DisplayAllGroups')">
           {{ t("change-todo-groups") }}
         </li>
       </ul>
