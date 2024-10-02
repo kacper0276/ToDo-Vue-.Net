@@ -17,6 +17,14 @@
         <span class="slider"></span>
       </label>
     </div>
+
+    <div
+      class="edit-container"
+      v-if="props.showEditButton"
+      @click="changeActualGroup(props.todoGroup)"
+    >
+      <button class="details-button">Edycja</button>
+    </div>
   </div>
 </template>
 
@@ -29,6 +37,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const { changeGroupVisibility } = useToDoGroup();
 const { t } = useI18n();
+const emit = defineEmits(["change-actual-group"]);
 
 const navigateToDetails = () => {
   if (props.todoGroup) {
@@ -43,9 +52,14 @@ const changeVisibilityGroup = async () => {
   await changeGroupVisibility(props.todoGroup.id);
 };
 
+const changeActualGroup = (actualGroup: ToDoGroup) => {
+  emit("change-actual-group", actualGroup);
+};
+
 const props = defineProps<{
   todoGroup: ToDoGroup;
   showChangeVisibleButton: boolean;
+  showEditButton?: boolean;
 }>();
 </script>
 
@@ -120,6 +134,10 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(20px);
+}
+
+.edit-container {
+  margin-top: 15px;
 }
 
 @media (max-width: 768px) {

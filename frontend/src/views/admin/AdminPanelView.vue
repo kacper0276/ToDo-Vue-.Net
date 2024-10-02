@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import DisplayUsersList from "@/components/admin/DisplayUsersList.vue";
-import ChangeToDoGroupDataForm from "@/components/todoGroup/ChangeToDoGroupDataForm.vue";
 import AdminPanelNavigation from "@/components/nav/AdminPanelNavigation.vue";
 import { setDocumentTitle } from "@/composables/setDocumentTitle";
 import { markRaw, ref } from "vue";
+import DisplayAllGroups from "@/components/admin/DisplayAllGroups.vue";
 
 const { setTitle } = setDocumentTitle("admin-panel");
 setTitle("admin-panel");
 
 const componentsMap: Record<string, any> = {
   DisplayUsersList: DisplayUsersList,
-  ChangeToDoGroupDataForm: ChangeToDoGroupDataForm,
+  DisplayAllGroups: DisplayAllGroups,
 };
 
 const currentPanel = ref<any>(null);
