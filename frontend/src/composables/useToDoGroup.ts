@@ -185,6 +185,32 @@ export function useToDoGroup() {
     }
   };
 
+  const changeGroupData = async (
+    groupId: number,
+    toDoGroup: Partial<ToDoGroup>
+  ): Promise<void> => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      await todoGroupService.changeGroupData(groupId, toDoGroup);
+      notify({
+        type: "success",
+        title: t("success"),
+        text: t("successfully-change-group-visibility"),
+      });
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err);
+      notify({
+        type: "error",
+        title: t("error"),
+        text: t("failed-to-change-group-visibility", { error: error.value }),
+      });
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     groups,
     group,
@@ -197,5 +223,6 @@ export function useToDoGroup() {
     addToDoGroup,
     deleteToDoGroup,
     changeGroupVisibility,
+    changeGroupData,
   };
 }

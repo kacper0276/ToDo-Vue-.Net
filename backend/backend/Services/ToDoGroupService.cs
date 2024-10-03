@@ -13,7 +13,7 @@ namespace backend.Services
         Task<ListResponse<ToDoGroup>> GetByLoginOnlyEnabledAsync(string login);
         Task<ListResponse<ToDoItem>> GetToDoInGroupByGroupId(int id);
         Task<PageResult<ToDoGroup>> GetAllAsync(int pageNumber, int pageSize);
-        Task<bool> UpdateAsync(ToDoGroup group);
+        Task<bool> UpdateAsync(int groupId, ToDoGroup group);
         Task<bool> DeleteAsync(int id);
         Task<bool> ChangeGroupVisibilityAsync(int groupId);
     }
@@ -118,9 +118,9 @@ namespace backend.Services
             };
         }
         
-        public async Task<bool> UpdateAsync(ToDoGroup group)
+        public async Task<bool> UpdateAsync(int groupId, ToDoGroup group)
         {
-            var existingGroup = await _context.ToDoGroups.FindAsync(group.Id);
+            var existingGroup = await _context.ToDoGroups.FindAsync(groupId);
             if (existingGroup == null)
             {
                 return false;

@@ -26,12 +26,13 @@
         <input type="text" id="description" v-model="form.description" />
       </div>
 
-      <button>Zapisz zmiany</button>
+      <button @click="onSubmit">Zapisz zmiany</button>
     </form>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useToDoGroup } from "@/composables/useToDoGroup";
 import { ToDoGroup } from "@/types";
 import { ref, watchEffect } from "vue";
 
@@ -40,6 +41,8 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["change-actual-group"]);
+
+const { changeGroupData } = useToDoGroup();
 
 const closeForm = () => {
   emit("change-actual-group", null);
@@ -60,6 +63,11 @@ watchEffect(() => {
     };
   }
 });
+
+const onSubmit = async () => {
+  await changeGroupData(form.value.id, form.value);
+  closeForm();
+};
 </script>
 
 <style scoped>
