@@ -83,5 +83,13 @@ namespace backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpPatch("change-group/{groupId}")]
+        public async Task<IActionResult> UpdateData(int groupId, ToDoGroup toDoGroup)
+        {
+            var result = await _service.UpdateAsync(groupId, toDoGroup);
+
+            return Ok(result);
+        }
     }
 }
