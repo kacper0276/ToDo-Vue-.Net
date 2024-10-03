@@ -17,14 +17,27 @@
     </button>
 
     <form class="change-data-form">
-      <input type="text" />
-      <input type="text" />
+      <div class="input-group">
+        <label for="name">name</label>
+        <input type="text" id="name" v-model="form.name" />
+      </div>
+      <div class="input-group">
+        <label for="description">description</label>
+        <input type="text" id="description" v-model="form.description" />
+      </div>
+
+      <button>Zapisz zmiany</button>
     </form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { ToDoGroup } from "@/types";
+import { ToDoGroup } from "@/types";
+import { ref, watchEffect } from "vue";
+
+const props = defineProps<{
+  toDoGroup: ToDoGroup;
+}>();
 
 const emit = defineEmits(["change-actual-group"]);
 
@@ -32,9 +45,21 @@ const closeForm = () => {
   emit("change-actual-group", null);
 };
 
-const props = defineProps<{
-  toDoGroup: ToDoGroup;
-}>();
+const form = ref<Pick<ToDoGroup, "id" | "name" | "description">>({
+  id: props.toDoGroup.id!,
+  name: props.toDoGroup.name!,
+  description: props.toDoGroup.description!,
+});
+
+watchEffect(() => {
+  if (props.toDoGroup) {
+    form.value = {
+      id: props.toDoGroup.id,
+      name: props.toDoGroup.name,
+      description: props.toDoGroup.description,
+    };
+  }
+});
 </script>
 
 <style scoped>
@@ -64,5 +89,43 @@ const props = defineProps<{
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  color: var(--label-color);
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--button-background);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+button:disabled {
+  background-color: rgb(100, 100, 100);
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--button-hover);
 }
 </style>
