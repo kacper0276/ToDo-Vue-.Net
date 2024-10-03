@@ -5,6 +5,7 @@
       :show-change-visible-button="false"
       :show-edit-button="true"
       :todo-group="group"
+      :show-delete-button="true"
       @change-actual-group="handleGroup"
     />
 

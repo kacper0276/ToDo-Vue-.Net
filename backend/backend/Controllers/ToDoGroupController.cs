@@ -91,5 +91,13 @@ namespace backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{groupId}")]
+        public async Task<IActionResult> DeleteToDoGroup(int groupId)
+        {
+            var result = await _service.DeleteAsync(groupId);
+
+            return Ok(result);
+        }
     }
 }
