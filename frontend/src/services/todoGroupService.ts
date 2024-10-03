@@ -84,4 +84,19 @@ export default {
       throw error;
     }
   },
+
+  async changeGroupData(
+    groupId: number,
+    toDoGroup: Partial<ToDoGroup>
+  ): Promise<void> {
+    try {
+      await jsonApiClient.patch<void>(
+        `/todo-group/change-group/${groupId}`,
+        toDoGroup
+      );
+    } catch (error) {
+      console.log("Error");
+      throw error;
+    }
+  },
 };
